@@ -1,0 +1,32 @@
+<div class="filters-header flex justify-end mb-2">
+  <mat-panel-title>
+      FILTER BY
+    </mat-panel-title>
+  <button mat-icon-button aria-label="Close filters" (click)="onClose()">    
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<mat-expansion-panel *ngIf="categories">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      CATEGORIES
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let categoryitem of categories" [value]="categoryitem">
+      <button (click)="onShowCategory(categoryitem)">{{ categoryitem }}</button>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-expansion-panel>
+<mat-expansion-panel *ngIf="categories">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      OTHERS
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let categoryitem of categories" [value]="categoryitem">
+      <button (click)="onShowCategory(categoryitem)">{{ categoryitem }}</button>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-expansion-panel>

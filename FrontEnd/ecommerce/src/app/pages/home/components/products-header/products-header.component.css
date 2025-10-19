@@ -1,0 +1,13 @@
+/* Products header responsive styles */
+.products-header { display: flex; justify-content: space-between; align-items: center; }
+.products-header .left-controls, .products-header .right-controls { display: flex; gap: 8px; align-items: center; }
+.products-header .left-controls button, .products-header .right-controls button { padding: 6px 8px; }
+
+@media (max-width: 640px) {
+	.products-header { flex-direction: column; align-items: stretch; gap: 8px; }
+	.products-header .left-controls, .products-header .right-controls { width: 100%; justify-content: space-between; }
+	.products-header .left-controls { order: 2; }
+	.products-header .right-controls { order: 1; }
+	.products-header .left-controls button, .products-header .right-controls button { padding: 6px; font-size: 14px; }
+}
+

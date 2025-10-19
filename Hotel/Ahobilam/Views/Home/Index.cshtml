@@ -1,0 +1,109 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model Ahobilam.Models.BookingViewModel
+<!-- Hero Section Begin -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="hero-text">
+                    <h1>Hotel Tamilnadu in Ahobilam</h1>
+                    <p>
+                        Here are the best hotel booking sites, including recommendations for international
+                        travel and for finding low-priced hotel rooms.
+                    </p>
+                    <a href="#" class="primary-btn">Discover Now</a>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
+                <div class="booking-form">
+                    <h3>Booking Your Hotel</h3>
+                    @using (Html.BeginForm())
+                    {
+                        <!--    <form action="#">   -->
+                        <div class="check-date">
+                            <label for="date-in">Check In:</label>
+                            <input type="text" class="date-input" id="date-in">
+                            <i class="icon_calendar"></i>
+                        </div>
+                        <div class="check-date">
+                            <label for="date-out">Check Out:</label>
+                            <input type="text" class="date-input" id="date-out">
+                            <i class="icon_calendar"></i>
+                        </div>
+                        <div class="select-option">
+                            <label for="guest">Guests:</label>
+                            <select id="guest">
+                                <option value="2">2 Adults</option>
+                                <option value="3">3 Adults</option>
+                            </select>
+                        </div>
+                        <div class="select-option">
+                            <label for="room">Room:</label>
+                            <select id="room">
+                                <option value="1">1 Room</option>
+                                <!--option value="2">2 Room</!--option-->
+                            </select>
+                        </div>
+                        <div class="select-option">
+                            <label for="roomtype">Room Types:</label>
+                            <select id="roomtype">
+                                <option value="Economic">Economic</option>
+                                <option value="Deluxe">Deluxe</option>
+                                <option value="Deluxe">Family</option>
+                                <option value="Deluxe">Premium</option>
+                            </select>
+                        </div>
+                        <button type="button" onclick="CheckAvailability()">Check Availability</button>
+                        <!-- </form>    -->
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-slider owl-carousel">
+        <div class="hs-item set-bg" data-setbg="img/hero/hero-1.jpg"></div>
+        <div class="hs-item set-bg" data-setbg="img/hero/hero-2.jpg"></div>
+        <div class="hs-item set-bg" data-setbg="img/hero/hero-3.jpg"></div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<script type="text/javascript">
+ 
+        function CheckAvailability() {
+            //    debugger;
+            var guests = $("#guest").val();
+            var rooms = $("#room").val();
+            var checkin = $("#date-in").val();
+            var checkout = $("#date-out").val();
+            var roomtype = $("#roomtype").val();
+
+            if ((checkin == "") && (checkout == "")) {
+                alert("Please select the date and try again..");
+                return;
+            }
+           
+            $.ajax({
+                url: "@Url.Action("CheckAvailability", "Home")",
+                data: { CheckInDate: checkin, CheckOutDate: checkout, Guests: guests, Rooms: rooms, RoomType:roomtype },
+                //date: {},
+                cache: false,
+                DataType: 'json',
+                type: "POST",
+                success: function (data) {
+                    if (data == "SUCCESS") {
+                        alert("Congrats...Rooms(s) available..Please click on the BOOKING NOW");
+                    }
+                    else
+                        alert(data);
+                   
+                },
+                error: function (response) {
+                    alert(response);
+                }
+            });
+
+        }
+
+</script>
