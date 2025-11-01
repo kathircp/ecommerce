@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -23,33 +23,25 @@ import { StoreService } from './services/store.service';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-  CarouselComponent,
-    HomeComponent,
-    ProductsHeaderComponent,
-    FiltersComponent,
-    ProductBoxComponent,
-    CartComponent,
-    LoginDialogComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    MatSidenavModule,
-    MatGridListModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatTreeModule,   
-    MatToolbarModule,  
-    MatBadgeModule,    
-    HttpClientModule,
-    
-  ],
-  providers: [CartService, StoreService],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HeaderComponent,
+        CarouselComponent,
+        HomeComponent,
+        ProductsHeaderComponent,
+        FiltersComponent,
+        ProductBoxComponent,
+        CartComponent,
+        LoginDialogComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        MatSidenavModule,
+        MatGridListModule,
+        MatIconModule,
+        MatExpansionModule,
+        MatTreeModule,
+        MatToolbarModule,
+        MatBadgeModule], providers: [CartService, StoreService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
