@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ECommerce.Models
 {
-    [Table("Products", Schema = "ecom")]
+    [Table("Products", Schema = "ecomm")]
     public class Product
     {
         [Key]

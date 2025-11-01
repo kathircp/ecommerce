@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ECommerce.Models
 {
-    [Table("Orders", Schema = "ecom")]
+    [Table("Orders", Schema = "ecomm")]
     public class Order
     {
         [Key]

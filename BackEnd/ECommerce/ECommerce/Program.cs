@@ -68,7 +68,7 @@ var jwtSettings = new ECommerce.Services.JwtSettings
 };
 
 builder.Services.AddSingleton(jwtSettings);
-builder.Services.AddSingleton<ECommerce.Services.IUserRepository, ECommerce.Services.InMemoryUserRepository>();
+builder.Services.AddScoped<ECommerce.Services.IUserRepository, ECommerce.Services.InMemoryUserRepository>();
 builder.Services.AddScoped<ECommerce.Services.ITokenService, ECommerce.Services.TokenService>(sp => new ECommerce.Services.TokenService(jwtSettings));
 
 //
