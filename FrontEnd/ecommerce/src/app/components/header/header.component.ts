@@ -2,8 +2,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from './../../services/cart.service';
 import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-
 
 @Component({
   selector: 'app-header',
@@ -31,7 +29,7 @@ export class HeaderComponent {
     .reduce((prev, current) => prev + current, 0);
   }
 
-  constructor(private cartService: CartService, private dialog: MatDialog) { }
+  constructor(private cartService: CartService) { }
 
   @Output() search = new EventEmitter<string>();
 
@@ -45,7 +43,7 @@ export class HeaderComponent {
 
   onUserClick(){
     // Placeholder - open login dialog or navigate to account
-    console.log('User icon clicked');
+    /*console.log('User icon clicked');
      const dialogRef = this.dialog.open(LoginDialogComponent, {
         width: '400px', // Customize width
         // Add other configuration options like data, disableClose, etc.
@@ -54,7 +52,7 @@ export class HeaderComponent {
       dialogRef.afterClosed().subscribe(() => {
         console.log('The dialog was closed');
         // Handle login result if needed
-      });
+      });*/
   }
 
   getTotal(items: Array<CartItem>): number{

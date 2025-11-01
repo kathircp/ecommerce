@@ -27,7 +27,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { CartService } from './services/cart.service';
 import { StoreService } from './services/store.service';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 
 
 @NgModule({
@@ -48,19 +47,12 @@ import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/lega
     AppRoutingModule,
     MatSidenavModule,
     MatGridListModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatCardModule,
     MatIconModule,
     MatExpansionModule,
-    MatTreeModule,
-    MatListModule,
-    MatToolbarModule,
-    MatTableModule,
-    MatBadgeModule,
-    MatSnackBarModule,
+    MatTreeModule,   
+    MatToolbarModule,  
+    MatBadgeModule,    
     HttpClientModule,
-    MatDialogModule 
     
   ],
   providers: [CartService, StoreService],
