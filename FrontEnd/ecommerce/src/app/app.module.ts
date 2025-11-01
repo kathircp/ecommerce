@@ -26,6 +26,9 @@ import { ProductsHeaderComponent } from './pages/home/components/products-header
 import { HomeComponent } from './pages/home/home.component';
 import { CartService } from './services/cart.service';
 import { StoreService } from './services/store.service';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +39,8 @@ import { StoreService } from './services/store.service';
     ProductsHeaderComponent,
     FiltersComponent,
     ProductBoxComponent,
-    CartComponent
+    CartComponent,
+    LoginDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,9 @@ import { StoreService } from './services/store.service';
     MatTableModule,
     MatBadgeModule,
     MatSnackBarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule 
+    
   ],
   providers: [CartService, StoreService],
   bootstrap: [AppComponent]
