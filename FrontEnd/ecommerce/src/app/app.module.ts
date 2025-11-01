@@ -27,6 +27,9 @@ import { CartService } from './services/cart.service';
 import { StoreService } from './services/store.service';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,11 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
     MatTableModule,
     MatBadgeModule,
     MatSnackBarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule
     
   ],
   providers: [CartService, StoreService],

@@ -1,1 +1,31 @@
-<p>testing</p>
+<mat-card>
+    <mat-card-header>
+        <h2>User Login</h2>
+    </mat-card-header>
+    <mat-card-content>
+        <form #loginForm="ngForm" (submit)="login()">        
+            <mat-error *ngIf="!loginValid">
+                Please provide valid details.
+            </mat-error>
+            <mat-form-field>
+                <mat-label>User Name</mat-label>
+                <input matInput placeholder="User Name" [(ngModel)]="user" name="user" required>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password"
+                    required>
+            </mat-form-field>
+            <div class="Container">
+                 <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Login</button>
+               
+                 <button mat-raised-button color="primary" >Sign Up</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
+
+<footer>
+    Copyright © {{year}}
+    <a href="#" rel="" target="_blank" title="Mayon Sarees">Mayon Sarees</a>
+</footer>

@@ -50,13 +50,11 @@
             <li><button mat-button [matMenuTriggerFor]="categoriesMenu" aria-haspopup="true">Deals</button></li>
             <li><button mat-button aria-haspopup="true" routerLink="/home">Contact</button> </li>
           </ul>
-        </nav>
-        <div class="search-wrapper">
-          <input type="search" placeholder="Search products..."  class="global-search" aria-label="Search products" />
-        </div>
+        </nav>   
       </div>
 
       <div class="header-right">
+        <input type="search" placeholder="Search products..." />
         <button mat-icon-button [matMenuTriggerFor]="menuRef" aria-label="Open cart">
           <mat-icon
           [matBadge]="itemsQuantity"

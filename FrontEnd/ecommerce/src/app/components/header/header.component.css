@@ -7,15 +7,14 @@
 .header-left { flex: 0 0 auto; }
 .logo-img { height: 36px; }
 .header-center { flex: 1 1 auto; display: flex; justify-content: center; }
-.global-search { width: 60%; max-width: 540px; padding: 8px 10px; border-radius: 6px; border: 1px solid #e5e7eb; }
+
 .header-right { flex: 0 0 auto; display:flex; gap:8px; align-items:center; }
 
 .menubar { margin-bottom: 4px; }
 .menubar-list { list-style: none; display: flex; gap: 12px; padding: 0; margin: 0 0 4px 0; }
 .menubar-list li a, .menubar-list li button { text-decoration: none; color: inherit; background: transparent; border: none; cursor: pointer; }
 
-.search-wrapper { margin-left: 16px; display: flex; align-items: center; }
-.search-wrapper .global-search { width: 420px; max-width: 50vw; }
+.search-wrapper {width: 30%; height: 36px; align-items: right; display: flex;}
 
 .mobile-menu-btn { display: none; }
 .header-sidenav-container { width: 100%; }
