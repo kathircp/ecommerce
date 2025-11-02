@@ -10,12 +10,15 @@ namespace ECommerce.Models
     public class Order
     {
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public int Id { get; set; }
+        public int CustomerId { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+        public decimal Total { get; set; }
 
-        public decimal Total => Items.Sum(i => i.LineTotal);
+        //public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+
+        //public decimal Total => Items.Sum(i => i.LineTotal);
     }
 }

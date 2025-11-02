@@ -7,24 +7,24 @@ using ECommerce.Data;
 
 namespace ECommerce.Repositories
 {
-    public class InMemoryProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly ECommerceDbContext _db;
 
-        public InMemoryProductRepository(ECommerceDbContext db)
+        public ProductRepository(ECommerceDbContext db)
         {
             _db = db;
         }
 
         public Product Create(Product product)
         {
-            product.Id = Guid.NewGuid();
+            //product.Id = Guid.NewGuid();
             _db.Products.Add(product);
             _db.SaveChanges();
             return product;
         }
 
-        public bool Delete(Guid id)
+        public bool Delete(int id)
         {
             var p = _db.Products.Find(id);
             if (p == null) return false;
@@ -33,7 +33,7 @@ namespace ECommerce.Repositories
             return true;
         }
 
-        public Product? Get(Guid id)
+        public Product? Get(int id)
         {
             return _db.Products.Find(id);
         }

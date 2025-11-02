@@ -22,7 +22,7 @@ namespace ECommerce.Services
         }
         public User? GetByUsername(string userName)
         {
-            return _db.Users.Where(x=> x.Username.ToUpper() == userName.ToUpper()).FirstOrDefault();
+            return _db.Users.Where(x=> x.Username.ToUpper() == userName.ToUpper())?.FirstOrDefault();
         }
 
     }

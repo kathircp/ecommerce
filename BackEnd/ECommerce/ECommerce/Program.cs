@@ -54,8 +54,8 @@ else
 }
 
 //// Register repositories
-builder.Services.AddScoped<ECommerce.Repositories.IProductRepository, ECommerce.Repositories.InMemoryProductRepository>();
-builder.Services.AddScoped<ECommerce.Repositories.IOrderRepository, ECommerce.Repositories.InMemoryOrderRepository>();
+builder.Services.AddScoped<ECommerce.Repositories.IProductRepository, ECommerce.Repositories.ProductRepository>();
+builder.Services.AddScoped<ECommerce.Repositories.IOrderRepository, ECommerce.Repositories.OrderRepository>();
 
 // Register users and token services
 var jwt = builder.Configuration.GetSection("JwtSettings");

@@ -32,8 +32,8 @@ namespace ECommerce.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet("{id:guid}")]
-        public IActionResult Get(Guid id)
+        [HttpGet("{id:int}")]
+        public IActionResult Get(int id)
         {
             var p = _products.Get(id);
             if (p == null) return NotFound();
@@ -75,8 +75,8 @@ namespace ECommerce.Controllers
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
 
-        [HttpPut("{id:guid}")]
-        public IActionResult Update(Guid id, [FromBody] ProductUpdateDto dto)
+        [HttpPut("{id:int}")]
+        public IActionResult Update(int id, [FromBody] ProductUpdateDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -94,8 +94,8 @@ namespace ECommerce.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:guid}")]
-        public IActionResult Delete(Guid id)
+        [HttpDelete("{id:int}")]
+        public IActionResult Delete(int id)
         {
             var existing = _products.Get(id);
             if (existing == null) return NotFound();

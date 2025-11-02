@@ -7,28 +7,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Repositories
 {
-    public class InMemoryOrderRepository : IOrderRepository
+    public class OrderRepository : IOrderRepository
     {
         private readonly ECommerceDbContext _db;
 
-        public InMemoryOrderRepository(ECommerceDbContext db)
+        public OrderRepository(ECommerceDbContext db)
         {
             _db = db;
         }
 
         public IEnumerable<Order> GetAll()
         {
-            return _db.Orders.Include(o => o.Items).AsNoTracking().ToList();
+            return _db.Orders.ToList();
         }
 
-        public Order? Get(Guid id)
+        public Order? Get(int id)
         {
-            return _db.Orders.Include(o => o.Items).FirstOrDefault(o => o.Id == id);
+
+            return _db.Orders.Find(id);
         }
 
         public Order Create(Order order)
         {
-            order.Id = Guid.NewGuid();
+            //order.Id = Guid.NewGuid();
             order.CreatedAt = DateTime.UtcNow;
             _db.Orders.Add(order);
             _db.SaveChanges();

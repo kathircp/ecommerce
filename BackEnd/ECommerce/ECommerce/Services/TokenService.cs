@@ -22,6 +22,7 @@ namespace ECommerce.Services
         {
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.NameId, user.Role.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -37,15 +38,4 @@ namespace ECommerce.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-
-            //var claims = new[]
-            //{
-            //    new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            //    new Claim(ClaimTypes.Name, user.Username)
-            //}
-            //.Concat(user.Roles.Select(r => new Claim(ClaimTypes.Role, r)))
-            //.ToList();
-
-            //// Ensure key is at least 256 bits (32 bytes). If the provided key is shorter,
-            //// derive a 256-bit key by hashing the provided string with SHA-256.
-            //byte[] keyBytes = Encoding.UTF8.GetBytes(_settings.Key ?? string.Empty);                        //var key = new SymmetricSecurityKey(keyBytes);            //var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);            //var token = new JwtSecurityToken(            //    issuer: _settings.Issuer,            //    audience: _settings.Audience,            //    claims: claims,            //    expires: DateTime.UtcNow.AddMinutes(_settings.ExpireMinutes),            //    signingCredentials: creds            //);            //return new JwtSecurityTokenHandler().WriteToken(token);        }            }}
+                   }            }}

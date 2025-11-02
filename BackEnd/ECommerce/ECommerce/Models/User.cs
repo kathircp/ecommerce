@@ -11,7 +11,8 @@ namespace ECommerce.Models
         [Key]
         public int Id { get; set; }
         public string Username { get; set; } = null!;
-        public string Password { get; set; } = null!; // plaintext for demo only - do not use in production
-        //public List<string> Roles { get; set; } = new();
+        public string Password { get; set; } = null!;
+        public int Role { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
