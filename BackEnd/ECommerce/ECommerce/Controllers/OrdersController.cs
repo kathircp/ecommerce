@@ -7,8 +7,7 @@ using ECommerce.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ECommerce.Controllers
-{
-    [Authorize]
+{    
     [ApiController]
     [Route("[controller]")]
     public class OrdersController : ControllerBase
@@ -25,41 +24,61 @@ namespace ECommerce.Controllers
         [HttpGet]       
         public IActionResult GetAll()
         {
-            var dtos = _orders.GetAll().Select(o => new OrderDto
+            var orders = _orders.GetAll();
+            foreach (var o in orders)
             {
-                Id = o.Id,
-                CreatedAt = o.CreatedAt,
-                Items = o.Items.Select(i => new OrderItemDto
-                {
-                    ProductId = i.ProductId,
-                    ProductName = i.ProductName,
-                    UnitPrice = i.UnitPrice,
-                    Quantity = i.Quantity,
-                    LineTotal = i.LineTotal
-                }).ToList(),
-                Total = o.Total
-            });
-            return Ok(dtos);
+                
+                //var dto = new OrderDto
+                //{
+                //    Id = o.Id,
+                //    CreatedAt = o.CreatedAt,
+                //    Items = o.Items.Select(i => new OrderItemDto
+                //    {
+                //        ProductId = i.ProductId,
+                //        ProductName = i.ProductName,
+                //        UnitPrice = i.UnitPrice,
+                //        Quantity = i.Quantity,
+                //        LineTotal = i.LineTotal
+                //    }).ToList(),
+                //    Total = o.Total
+                //};
+            }
+            //var orderItems = _orders.SelectMany(o => o.Items).ToList(); // Eager load items if necessary
+            //var dtos = _orders.GetAll().Select(o => new OrderDto
+            //{
+            //    Id = o.Id,
+            //    CreatedAt = o.CreatedAt,
+            //    Items = o.Items.Select(i => new OrderItemDto
+            //    {
+            //        ProductId = i.ProductId,
+            //        ProductName = i.ProductName,
+            //        UnitPrice = i.UnitPrice,
+            //        Quantity = i.Quantity,
+            //        LineTotal = i.LineTotal
+            //    }).ToList(),
+            //    Total = o.Total
+            //});
+            return Ok(orders);
         }
 
-        [HttpGet("{id:guid}")]
-        public IActionResult Get(Guid id)
+        [HttpGet("{id:int}")]
+        public IActionResult Get(int id)
         {
             var o = _orders.Get(id);
             if (o == null) return NotFound();
             var dto = new OrderDto
             {
-                Id = o.Id,
-                CreatedAt = o.CreatedAt,
-                Items = o.Items.Select(i => new OrderItemDto
-                {
-                    ProductId = i.ProductId,
-                    ProductName = i.ProductName,
-                    UnitPrice = i.UnitPrice,
-                    Quantity = i.Quantity,
-                    LineTotal = i.LineTotal
-                }).ToList(),
-                Total = o.Total
+                //Id = o.Id,
+                //CreatedAt = o.CreatedAt,
+                //Items = o.Items.Select(i => new OrderItemDto
+                //{
+                //    ProductId = i.ProductId,
+                //    ProductName = i.ProductName,
+                //    UnitPrice = i.UnitPrice,
+                //    Quantity = i.Quantity,
+                //    LineTotal = i.LineTotal
+                //}).ToList(),
+                //Total = o.Total
             };
             return Ok(dto);
         }
@@ -93,29 +112,30 @@ namespace ECommerce.Controllers
                 _products.Update(prod);
             }
 
-            var order = new Order
-            {
-                Items = items
-            };
+            //var order = new Order
+            //{
+            //    Items = items
+            //};
 
-            var created = _orders.Create(order);
+            //var created = _orders.Create(order);
 
-            var dto = new OrderDto
-            {
-                Id = created.Id,
-                CreatedAt = created.CreatedAt,
-                Items = created.Items.Select(i => new OrderItemDto
-                {
-                    ProductId = i.ProductId,
-                    ProductName = i.ProductName,
-                    UnitPrice = i.UnitPrice,
-                    Quantity = i.Quantity,
-                    LineTotal = i.LineTotal
-                }).ToList(),
-                Total = created.Total
-            };
+            //var dto = new OrderDto
+            //{
+            //    Id = created.Id,
+            //    CreatedAt = created.CreatedAt,
+            //    Items = created.Items.Select(i => new OrderItemDto
+            //    {
+            //        ProductId = i.ProductId,
+            //        ProductName = i.ProductName,
+            //        UnitPrice = i.UnitPrice,
+            //        Quantity = i.Quantity,
+            //        LineTotal = i.LineTotal
+            //    }).ToList(),
+            //    Total = created.Total
+            //};
 
-            return CreatedAtAction(nameof(Get), new { id = dto.Id }, dto);
+            //return CreatedAtAction(nameof(Get), new { id = dto.Id }, dto);
+            return default;
         }
     }
 }

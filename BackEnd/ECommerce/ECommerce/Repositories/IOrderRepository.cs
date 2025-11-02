@@ -8,7 +8,7 @@ namespace ECommerce.Repositories
     {
         IEnumerable<Order> GetAll();
 
-        Order? Get(Guid id);
+        Order? Get(int id);
 
         Order Create(Order order);
     }

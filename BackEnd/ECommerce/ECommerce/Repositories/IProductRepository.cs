@@ -8,12 +8,12 @@ namespace ECommerce.Repositories
     {
         IEnumerable<Product> GetAll();
 
-        Product? Get(Guid id);
+        Product? Get(int id);
 
         Product Create(Product product);
 
         bool Update(Product product);
 
-        bool Delete(Guid id);
+        bool Delete(int id);
     }
 }

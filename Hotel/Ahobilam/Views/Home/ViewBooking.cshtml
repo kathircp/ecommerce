@@ -1,0 +1,157 @@
+﻿@{
+    ViewData["Title"] = "View My Booking";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="text-center">
+        <b>Enter the Custome ID  :</b> @Html.TextBox("SearchName")<br />
+        <br />
+        <button type="submit" class="btn btn-primary center-bloc" style="width:150px">Search</button>
+    </div>
+
+}
+
+@if ((ViewBag.bookingdetails != null) && (ViewBag.customerdetails != null))
+{
+    <h3 style="text-align:center">@ViewBag.Msg</h3>
+    <h3 style="text-align:center">Booking Details</h3>
+    <div>
+
+        <table id="t01">
+            <thead>
+            <th>Custome ID</th>
+            <th>Check In Date</th>
+            <th>Check Out Date</th>
+            <th>No of Adults</th>
+            <th>Room No</th>
+            <th>Room Type</th>
+            <th>Price</th>
+            </thead>
+            @foreach (var item in ViewBag.bookingdetails)
+            {
+                <tr>
+                    <td>
+                        @item.CustID
+                    </td>
+                    <td>
+                        @item.CheckInDate
+                    </td>
+                    <td>
+                        @item.CheckOutDate
+                    </td>
+                    <td>
+                        @item.NoOfAdults
+                    </td>
+                    <td>
+                        @item.RoomNo
+                    </td>
+                    <td>
+                        @item.RoomType
+                    </td>
+                    <td>
+                        @item.Price
+                    </td>
+                </tr>
+
+            }
+
+        </table>
+
+        <h3 style="text-align:center">Guest Details</h3>
+        <table id="t02">
+            <thead>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Sex</th>
+            <th>Phone</th>
+            <th>Address</th>
+            </thead>
+            @foreach (var item1 in ViewBag.customerdetails)
+            {
+
+                <tr>
+                    <td>
+                        @item1.Name
+                    </td>
+                    <td>
+                        @item1.Age
+                    </td>
+                    <td>
+                        @item1.Sex
+                    </td>
+                    <td>
+                        @item1.Phone
+                    </td>
+                    <td>
+                        @item1.Address
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <br />
+        <div class="text-center">
+            <button type="button" class="btn btn-primary center-bloc" onclick="window.print()">Print Booking</button>
+        </div>
+
+    </div>
+}
+else
+{
+    <h3 style="text-align:center">@ViewBag.Msg</h3>
+}
+<style>
+
+
+    table#t01 {
+        width: 90%;
+        background-color: #f1f1c1;
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+        table#t01 tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        table#t01 tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+
+    table#t02 {
+        width: 90%;
+        background-color: #f1f1c1;
+        margin-left:50px;
+        margin-right:50px;
+    }
+
+        table#t02 tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        table#t02 tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 15px;
+    }
+</style>

@@ -1,0 +1,33 @@
+mat-card {
+    max-width: 400px;
+    margin: 2em auto;
+    text-align: center;
+}
+
+mat-form-field {
+    display: block;
+}
+
+.card-title {
+    color: #646464;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+footer {
+    width: 100%;
+    font-size: .9em;
+    color: darkgray;
+    text-align: center;
+}
+.Container input{ /* You Can Name it what you want*/
+margin-right:10px;
+}
+.Container input:last-child{
+margin-right:20px;
+/*so the last one dont push the div thas giving the space only between the inputs*/
+}

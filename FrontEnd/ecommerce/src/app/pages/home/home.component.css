@@ -1,0 +1,5 @@
+.carousel-wrapper {
+  padding: 10px; /* Example padding */
+  max-width: 100%; /* Example max-width */
+  margin: 10 auto; /* Center the carousel */
+}

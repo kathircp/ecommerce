@@ -54,8 +54,8 @@ else
 }
 
 //// Register repositories
-builder.Services.AddScoped<ECommerce.Repositories.IProductRepository, ECommerce.Repositories.InMemoryProductRepository>();
-builder.Services.AddScoped<ECommerce.Repositories.IOrderRepository, ECommerce.Repositories.InMemoryOrderRepository>();
+builder.Services.AddScoped<ECommerce.Repositories.IProductRepository, ECommerce.Repositories.ProductRepository>();
+builder.Services.AddScoped<ECommerce.Repositories.IOrderRepository, ECommerce.Repositories.OrderRepository>();
 
 // Register users and token services
 var jwt = builder.Configuration.GetSection("JwtSettings");
@@ -68,7 +68,7 @@ var jwtSettings = new ECommerce.Services.JwtSettings
 };
 
 builder.Services.AddSingleton(jwtSettings);
-builder.Services.AddSingleton<ECommerce.Services.IUserRepository, ECommerce.Services.InMemoryUserRepository>();
+builder.Services.AddScoped<ECommerce.Services.IUserRepository, ECommerce.Services.InMemoryUserRepository>();
 builder.Services.AddScoped<ECommerce.Services.ITokenService, ECommerce.Services.TokenService>(sp => new ECommerce.Services.TokenService(jwtSettings));
 
 //

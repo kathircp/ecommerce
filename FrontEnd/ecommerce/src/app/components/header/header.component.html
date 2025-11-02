@@ -1,0 +1,110 @@
+    <div *ngIf="showNotification" class="notification-banner" role="status" aria-live="polite" aria-atomic="true">
+  <div class="notification-inner w-full flex items-center justify-between p-6">
+        <div class="notification-text">
+          <div class="marquee" tabindex="0" aria-label="Site notification; use mouse hover or keyboard focus to pause">
+            <span class="marquee-inner"><strong>Notice:</strong> Free shipping on orders over $50 this weekend.</span>
+          </div>
+        </div>
+        <div class="notification-actions">
+          <button class="notification-close" aria-label="Dismiss notification" (click)="dismissNotification()">✕</button>
+        </div>
+      </div>
+    </div>
+<mat-sidenav-container class="header-sidenav-container">
+  <mat-sidenav #mobileSidenav mode="over" class="mobile-sidenav">
+    <nav class="mobile-menu" aria-label="Mobile primary">
+      <ul>
+        <li><a routerLink="/home" (click)="mobileSidenav.close()">Home</a></li>
+        <li><a routerLink="/shop" (click)="mobileSidenav.close()">Shop</a></li>
+        <li><a routerLink="/home" [queryParams]="{ category: 'electronics' }" (click)="mobileSidenav.close()">Electronics</a></li>
+        <li><a routerLink="/deals" (click)="mobileSidenav.close()">Deals</a></li>
+        <li><a routerLink="/contact" (click)="mobileSidenav.close()">Contact</a></li>
+      </ul>
+    </nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="max-w-7x1 mx-auto border-x header-toolbar"> 
+
+      <div class="header-left">
+        <button mat-icon-button class="mobile-menu-btn" aria-label="Open menu" (click)="mobileSidenav.open()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <a routerLink="/home" class="logo">
+          <img src="assets/logo.png" alt="ECommerce logo" class="logo-img" />
+        </a>
+      </div>
+
+      <div class="header-center">
+        <nav class="menubar" role="navigation" aria-label="Primary">
+          <ul class="menubar-list">
+            <li>
+              <button mat-button aria-haspopup="true" routerLink="/home">Home</button>         
+            </li>       
+            <li>
+              <button mat-button [matMenuTriggerFor]="categoriesMenu" aria-haspopup="true">Shop</button>
+            </li>
+            <li>
+              <button mat-button [matMenuTriggerFor]="categoriesMenu" aria-haspopup="true">Categories</button>
+            </li>
+            <li><button mat-button [matMenuTriggerFor]="categoriesMenu" aria-haspopup="true">Deals</button></li>
+            <li><button mat-button aria-haspopup="true" routerLink="/home">Contact</button> </li>
+          </ul>
+        </nav>   
+      </div>
+
+      <div class="header-right">
+        <input type="search" placeholder="Search products..." />
+        <button mat-icon-button [matMenuTriggerFor]="menuRef" aria-label="Open cart">
+          <mat-icon
+          [matBadge]="itemsQuantity"
+          [matBadgeHidden]="!itemsQuantity"
+          matBadgeColor="warn">
+            shopping_cart
+          </mat-icon>
+        </button>
+        <button mat-icon-button aria-label="User account" (click)="onUserClick()">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      </div>
+      <mat-menu #menuRef="matMenu">
+    <div class="p-3 divide-y divide-solid">
+      <div class="pb-3 flex justify-between">
+        <span class="mr-16">{{ itemsQuantity }} Items</span>
+        <a routerLink="cart">View cart</a>
+      </div>
+      <div *ngIf="cart.items.length" class="py-3">
+
+        <div *ngFor="let item of cart.items" class="flex justify-between font-light mb-2">
+          {{ item.name }} x {{ item.quantity }}
+          <span class="font-bold">
+            {{ item.price | currency }}
+          </span>
+        </div>
+
+      </div>
+
+      <div class="flex justify-between py-3 font-light">
+        Total:
+        <span class="font-bold">{{ getTotal(cart.items) | currency }}</span>
+      </div>
+      <div class="pt-3 flex justify-between py-3 font-light">
+        <button
+        (click)="onClearCart()"
+        class="bg-rose-500 text-white rounded-full w-8 h-8">
+          <mat-icon class="mat-18">remove_shopping_cart</mat-icon>
+        </button>
+        <button class="bg-green-500 text-white rounded-full w-8 h-8">
+          <mat-icon class="mat-18">shopping_cart</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-menu>
+    <mat-menu #categoriesMenu="matMenu">
+      <button mat-menu-item [routerLink]="['/home']" [queryParams]="{ category: 'electronics' }">Electronics</button>
+      <button mat-menu-item [routerLink]="['/home']" [queryParams]="{ category: 'clothing' }">Clothing</button>
+      <button mat-menu-item [routerLink]="['/home']" [queryParams]="{ category: 'home' }">Home</button>
+    </mat-menu>
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>
