@@ -1,33 +1,11 @@
-    <div *ngIf="showNotification" class="notification-banner" role="status" aria-live="polite" aria-atomic="true">
-  <div class="notification-inner w-full flex items-center justify-between p-6">
-        <div class="notification-text">
-          <div class="marquee" tabindex="0" aria-label="Site notification; use mouse hover or keyboard focus to pause">
-            <span class="marquee-inner"><strong>Notice:</strong> Free shipping on orders over $50 this weekend.</span>
-          </div>
-        </div>
-        <div class="notification-actions">
-          <button class="notification-close" aria-label="Dismiss notification" (click)="dismissNotification()">✕</button>
-        </div>
-      </div>
-    </div>
-<mat-sidenav-container class="header-sidenav-container">
-  <mat-sidenav #mobileSidenav mode="over" class="mobile-sidenav">
-    <nav class="mobile-menu" aria-label="Mobile primary">
-      <ul>
-        <li><a routerLink="/home" (click)="mobileSidenav.close()">Home</a></li>
-        <li><a routerLink="/shop" (click)="mobileSidenav.close()">Shop</a></li>
-        <li><a routerLink="/home" [queryParams]="{ category: 'electronics' }" (click)="mobileSidenav.close()">Electronics</a></li>
-        <li><a routerLink="/deals" (click)="mobileSidenav.close()">Deals</a></li>
-        <li><a routerLink="/contact" (click)="mobileSidenav.close()">Contact</a></li>
-      </ul>
-    </nav>
-  </mat-sidenav>
+  
+<mat-sidenav-container class="header-sidenav-container">  
 
   <mat-sidenav-content>
     <mat-toolbar class="max-w-7x1 mx-auto border-x header-toolbar"> 
 
       <div class="header-left">
-        <button mat-icon-button class="mobile-menu-btn" aria-label="Open menu" (click)="mobileSidenav.open()">
+        <button mat-icon-button class="mobile-menu-btn" aria-label="Open menu">
           <mat-icon>menu</mat-icon>
         </button>
         <a routerLink="/home" class="logo">
@@ -38,17 +16,12 @@
       <div class="header-center">
         <nav class="menubar" role="navigation" aria-label="Primary">
           <ul class="menubar-list">
-            <li>
-              <button mat-button aria-haspopup="true" routerLink="/home">Home</button>         
-            </li>       
-            <li>
-              <button mat-button [matMenuTriggerFor]="categoriesMenu" aria-haspopup="true">Shop</button>
-            </li>
-            <li>
-              <button mat-button [matMenuTriggerFor]="categoriesMenu" aria-haspopup="true">Categories</button>
-            </li>
-            <li><button mat-button [matMenuTriggerFor]="categoriesMenu" aria-haspopup="true">Deals</button></li>
-            <li><button mat-button aria-haspopup="true" routerLink="/home">Contact</button> </li>
+            <li><button mat-button aria-haspopup="true" routerLink="/home">Home</button></li> 
+            <li><button mat-button [matMenuTriggerFor]="categoriesMenuSarees" aria-haspopup="true">Sarees</button></li>
+            <li><button mat-button [matMenuTriggerFor]="categoriesMenuKurtas" aria-haspopup="true" >Kurtas</button></li>
+            <li><button mat-button [matMenuTriggerFor]="categoriesMenuBlouses" aria-haspopup="true">Blouses</button></li>
+            <li><button mat-button  aria-haspopup="true" routerLink="/newarrivals" >New Arrivals</button></li>
+            <li><button mat-button aria-haspopup="true" routerLink="/aboutus">About</button> </li>            
           </ul>
         </nav>   
       </div>
@@ -100,11 +73,26 @@
       </div>
     </div>
   </mat-menu>
-    <mat-menu #categoriesMenu="matMenu">
-      <button mat-menu-item [routerLink]="['/home']" [queryParams]="{ category: 'electronics' }">Electronics</button>
-      <button mat-menu-item [routerLink]="['/home']" [queryParams]="{ category: 'clothing' }">Clothing</button>
-      <button mat-menu-item [routerLink]="['/home']" [queryParams]="{ category: 'home' }">Home</button>
-    </mat-menu>
+      <mat-menu #categoriesMenuSarees="matMenu">
+      <button mat-menu-item *ngFor="let item of menuItemsSarees"
+          (click)="item.action && item.action()"
+          [routerLink]="item.routerLink">
+            {{ item.label }}
+      </button>
+      </mat-menu>
+      <mat-menu #categoriesMenuKurtas="matMenu">
+      <button mat-menu-item *ngFor="let item of menuItemsKurtas"s         
+          [routerLink]="item.routerLink">
+            {{ item.label }}
+      </button>
+      </mat-menu>      
+      <mat-menu #categoriesMenuBlouses="matMenu">
+      <button mat-menu-item *ngFor="let item of menuItemsBlouses"          
+          [routerLink]="item.routerLink">
+            {{ item.label }}
+      </button>
+      </mat-menu>       
     </mat-toolbar>
   </mat-sidenav-content>
+  
 </mat-sidenav-container>

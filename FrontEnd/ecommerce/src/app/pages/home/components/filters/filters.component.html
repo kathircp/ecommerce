@@ -1,32 +1,55 @@
-<div class="filters-header flex justify-end mb-2">
-  <mat-panel-title>
-      FILTER BY
+<button (click)="toggleFilterPanel()">
+  {{ showFilterPanel ? 'Hide' : 'Show' }}
+</button>
+<div class="filters-header flex justify-end mb-2"  *ngIf="showFilterPanel" class="filter-panel">
+  <mat-expansion-panel *ngIf="colorFilter">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Color
     </mat-panel-title>
-  <button mat-icon-button aria-label="Close filters" (click)="onClose()">    
-    <mat-icon>close</mat-icon>
-  </button>
+  </mat-expansion-panel-header>
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let categoryitem of colorFilter" [value]="categoryitem">
+      <button (click)="onShowCategory(categoryitem)">{{ categoryitem }}</button>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-expansion-panel>
+<mat-expansion-panel *ngIf="rangeFilter">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Range
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let categoryitem of rangeFilter" [value]="categoryitem">
+      <button (click)="onShowCategory(categoryitem)">{{ categoryitem }}</button>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-expansion-panel>
+<mat-expansion-panel *ngIf="discountFilter">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Discount
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let categoryitem of discountFilter" [value]="categoryitem">
+      <button (click)="onShowCategory(categoryitem)">{{ categoryitem }}</button>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-expansion-panel>
+<mat-expansion-panel *ngIf="blouseFilter">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Blouse Pieces
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let categoryitem of blouseFilter" [value]="categoryitem">
+      <button (click)="onShowCategory(categoryitem)">{{ categoryitem }}</button>
+    </mat-list-option>
+  </mat-selection-list>
+</mat-expansion-panel>
+
 </div>
-<mat-expansion-panel *ngIf="categories">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      CATEGORIES
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <mat-selection-list [multiple]="false">
-    <mat-list-option *ngFor="let categoryitem of categories" [value]="categoryitem">
-      <button (click)="onShowCategory(categoryitem)">{{ categoryitem }}</button>
-    </mat-list-option>
-  </mat-selection-list>
-</mat-expansion-panel>
-<mat-expansion-panel *ngIf="categories">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      OTHERS
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <mat-selection-list [multiple]="false">
-    <mat-list-option *ngFor="let categoryitem of categories" [value]="categoryitem">
-      <button (click)="onShowCategory(categoryitem)">{{ categoryitem }}</button>
-    </mat-list-option>
-  </mat-selection-list>
-</mat-expansion-panel>
+

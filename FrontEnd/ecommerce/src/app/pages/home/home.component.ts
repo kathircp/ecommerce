@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { StoreService } from 'src/app/services/store.service';
 import { CartService } from './../../services/cart.service';
+import { IndexpageService } from 'src/app/services/indexpage.service';
+import { IndexPage } from 'src/app/models/index-page.model';
 
 const ROWS_HEIGHT: { [id:number]: number } = { 1: 400, 2: 380, 3: 335, 4: 350};
 @Component({
@@ -26,18 +28,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   cols: number = 4;
   rowHeight = ROWS_HEIGHT[this.cols];
   products: Array<Product> | undefined;
+  
   sort: string = 'desc';
   count: string = '12';
-  productSubscription: Subscription | undefined;
+  productSubscription: Subscription | undefined;  
+  activeCategory: any = null;
+  filteredProducts: any[] = []; // Array to store filtered products
 
   constructor(
     private cartService: CartService,
-    private storeService: StoreService,
+    private storeService: StoreService,   
     private route: ActivatedRoute,
     private breakpoint: BreakpointObserver
   ) { }
 
   ngOnInit(): void {
+   
     this.getProducts();
     this.breakpoint.observe([Breakpoints.XSmall, Breakpoints.Small]).subscribe(result => {
       // Prefer XSmall -> 1 column, Small -> 2 columns, otherwise desktop (4)
@@ -79,8 +85,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   getProducts(): void{
     this.productSubscription = this.storeService.getAllProducts(this.count, this.sort)
     .subscribe((_products)=> {
-      this.products = _products;
-      console.log(11111,this.products);
+      this.products = _products;      
     })
   }
 
@@ -93,6 +98,23 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onShowCategory(newCategory: string): void{
     this.category = newCategory;
+  }
+   openFilter(category: any) {
+    this.activeCategory = category;
+    this.showFilters = true;
+  }
+
+  closeFilter() {
+    this.showFilters = false;
+    this.activeCategory = null;
+  }
+
+  applyFilter(filterCriteria: any) {
+    // Implement your filtering logic here based on filterCriteria
+    // For example:
+    // this.filteredProducts = this.allProducts.filter(product => product.category === filterCriteria.category);
+    console.log('Filter applied with:', filterCriteria);
+    this.closeFilter();
   }
 
   onAddToCart(product: Product): void{
