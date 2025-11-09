@@ -1,5 +1,7 @@
+using ECommerce.AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -54,8 +56,8 @@ else
 }
 
 //// Register repositories
-builder.Services.AddScoped<ECommerce.Repositories.IProductRepository, ECommerce.Repositories.ProductRepository>();
-builder.Services.AddScoped<ECommerce.Repositories.IOrderRepository, ECommerce.Repositories.OrderRepository>();
+
+//builder.Services.AddScoped<ECommerce.Repositories.IOrderRepository, ECommerce.Repositories.OrderRepository>();
 
 // Register users and token services
 var jwt = builder.Configuration.GetSection("JwtSettings");
@@ -67,10 +69,16 @@ var jwtSettings = new ECommerce.Services.JwtSettings
     ExpireMinutes = int.TryParse(jwt["ExpireMinutes"], out var m) ? m : 60
 };
 
+
+
 builder.Services.AddSingleton(jwtSettings);
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 builder.Services.AddScoped<ECommerce.Services.IUserRepository, ECommerce.Services.InMemoryUserRepository>();
 builder.Services.AddScoped<ECommerce.Services.ITokenService, ECommerce.Services.TokenService>(sp => new ECommerce.Services.TokenService(jwtSettings));
-
+builder.Services.AddScoped<ECommerce.Services.IPageService, ECommerce.Services.PageService>();
+builder.Services.AddScoped<ECommerce.Services.IProductService, ECommerce.Services.ProductService>();
+builder.Services.AddScoped<ECommerce.Repositories.IIndexPageRepository, ECommerce.Repositories.IndexPageRepository>();
+builder.Services.AddScoped<ECommerce.Repositories.IProductRepository, ECommerce.Repositories.ProductRepository>();
 //
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
@@ -86,29 +94,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
     };
 });
-// Add authentication
-//builder.Services.AddAuthentication(options =>
-//{
-//    options.DefaultAuthenticateScheme = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme;
-//    options.DefaultChallengeScheme = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme;
-//})
-//.AddJwtBearer(options =>
-//{
-//    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-//    {
-//        ValidateIssuer = true,
-//        ValidateAudience = true,
-//        ValidateLifetime = true,
-//        ValidateIssuerSigningKey = true,
-//        ValidIssuer = jwtSettings.Issuer,
-//        ValidAudience = jwtSettings.Audience,
-//        IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtSettings.Key))
-//    };
-//});
 
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+using var loggerFactory = LoggerFactory.Create(builder =>
+{
+    builder.AddConsole(); // Adds Console Logger
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

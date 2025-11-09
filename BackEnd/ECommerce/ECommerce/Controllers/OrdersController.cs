@@ -13,12 +13,12 @@ namespace ECommerce.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrderRepository _orders;
-        private readonly IProductRepository _products;
+        
 
-        public OrdersController(IOrderRepository orders, IProductRepository products)
+        public OrdersController(IOrderRepository orders)
         {
             _orders = orders;
-            _products = products;
+           
         }
 
         [HttpGet]       
@@ -90,27 +90,27 @@ namespace ECommerce.Controllers
             if (create.Items == null || !create.Items.Any()) return BadRequest("Order must contain at least one item.");
 
             // Validate products and stock
-            var items = create.Items.Select(li =>
-            {
-                var product = _products.Get(li.ProductId);
-                if (product == null) throw new ArgumentException($"Product not found: {li.ProductId}");
-                if (product.Stock < li.Quantity) throw new InvalidOperationException($"Insufficient stock for product {product.Name}");
-                return new OrderItem
-                {
-                    ProductId = product.Id,
-                    ProductName = product.Name,
-                    UnitPrice = product.Price,
-                    Quantity = li.Quantity
-                };
-            }).ToList();
+            //var items = create.Items.Select(li =>
+            //{
+            //    var product = _products.Get(li.ProductId);
+            //    if (product == null) throw new ArgumentException($"Product not found: {li.ProductId}");
+            //    if (product.Stock < li.Quantity) throw new InvalidOperationException($"Insufficient stock for product {product.Name}");
+            //    return new OrderItem
+            //    {
+            //        ProductId = product.Id,
+            //        ProductName = product.Name,
+            //        UnitPrice = product.Price,
+            //        Quantity = li.Quantity
+            //    };
+            //}).ToList();
 
             // Deduct stock (simple approach)
-            foreach (var it in items)
-            {
-                var prod = _products.Get(it.ProductId)!;
-                prod.Stock -= it.Quantity;
-                _products.Update(prod);
-            }
+            //foreach (var it in items)
+            //{
+            //    var prod = _products.Get(it.ProductId)!;
+            //    prod.Stock -= it.Quantity;
+            //    _products.Update(prod);
+            //}
 
             //var order = new Order
             //{

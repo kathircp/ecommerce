@@ -7,18 +7,31 @@ using ECommerce.Data;
 
 namespace ECommerce.Repositories
 {
+    public interface IProductRepository
+    {
+        Task<IEnumerable<Product>> GetAll();
+
+        Product? Get(int id);
+
+        Product Create(Product product);
+
+        bool Update(Product product);
+
+        bool Delete(int id);
+    }
     public class ProductRepository : IProductRepository
     {
         private readonly ECommerceDbContext _db;
+        private readonly ILogger _logger;
 
-        public ProductRepository(ECommerceDbContext db)
+        public ProductRepository(ECommerceDbContext db, ILogger<ProductRepository> logger)
         {
             _db = db;
+            _logger = logger;
         }
 
         public Product Create(Product product)
-        {
-            //product.Id = Guid.NewGuid();
+        {           
             _db.Products.Add(product);
             _db.SaveChanges();
             return product;
@@ -38,9 +51,18 @@ namespace ECommerce.Repositories
             return _db.Products.Find(id);
         }
 
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAll()
         {
-            return _db.Products.AsNoTracking().ToList();
+            try
+            {   
+                var products = await _db.Products.ToListAsync();
+                return products;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while fetching products.");                
+            } 
+            return Enumerable.Empty<Product>();
         }
 
         public bool Update(Product product)

@@ -21,6 +21,7 @@ namespace ECommerce.Data
         public DbSet<Shipment> Shipments { get; set; } = null!;
         public DbSet<Track> Reviews { get; set; } = null!;
         public DbSet<UserDetail> UserDetails { get; set; } = null!;
+        public DbSet<Track> Tracks { get; set; } = null!;
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
