@@ -13,9 +13,9 @@ namespace ECommerce.Services
             _mapper = mapper;
             _productRepository = productRepository;
         }
-        public async Task<List<ProductDto>> GetProductsByPageAsync()
+        public async Task<List<ProductDto>> GetProductsByPageAsync(int limit)
         {
-            var repoResponse = await _productRepository.GetAll();
+            var repoResponse = await _productRepository.GetAll(limit);
             var dtoResponse = _mapper.Map<List<ProductDto>>(repoResponse);
             return dtoResponse;
         }

@@ -20,9 +20,9 @@ namespace ECommerce.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int limit)
         {
-            return Ok(await _productService.GetProductsByPageAsync());
+            return Ok(await _productService.GetProductsByPageAsync(limit));
         }
 
 

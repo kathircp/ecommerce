@@ -80,6 +80,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.productSubscription = this.storeService.getAllProducts(this.count, this.sort)
     .subscribe((_products)=> {
       this.products = _products;
+      console.log(11111,this.products);
     })
   }
 
@@ -96,8 +97,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onAddToCart(product: Product): void{
     this.cartService.addToCart({
-      product: product.image,
-      name: product.title,
+      product: product.imageUrl,
+      name: product.name,
       price: product.price,
       quantity: 1,
       id: product.id
