@@ -4,6 +4,6 @@ namespace ECommerce.Services
 {
     public interface IProductService
     {
-        Task<List<ProductDto>> GetProductsByPageAsync();
+        Task<List<ProductDto>> GetProductsByPageAsync(int limit);
     }
 }

@@ -9,7 +9,7 @@ namespace ECommerce.Repositories
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<Product>> GetAll();
+        Task<IEnumerable<Product>> GetAll(int limit);
 
         Product? Get(int id);
 
@@ -51,11 +51,11 @@ namespace ECommerce.Repositories
             return _db.Products.Find(id);
         }
 
-        public async Task<IEnumerable<Product>> GetAll()
+        public async Task<IEnumerable<Product>> GetAll(int limit)
         {
             try
             {   
-                var products = await _db.Products.ToListAsync();
+                var products = await _db.Products.Take(limit).ToListAsync();
                 return products;
             }
             catch (Exception ex)
