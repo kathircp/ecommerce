@@ -7,6 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Repositories
 {
+    public interface IOrderRepository
+    {
+        IEnumerable<Order> GetAll();
+
+        Order? Get(int id);
+
+        Order Create(Order order);
+    }
     public class OrderRepository : IOrderRepository
     {
         private readonly ECommerceDbContext _db;

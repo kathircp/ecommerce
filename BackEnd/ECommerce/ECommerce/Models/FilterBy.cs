@@ -8,9 +8,9 @@ namespace ECommerce.Models
     {
         [Key]
         public int Id { get; set; }       
-        public string FilterName { get; set; } = string.Empty;
-        public string OptionName { get; set; } = string.Empty;
-        public string OptionValue  { get; set; } = string.Empty;
+        public string? FilterName { get; set; } = string.Empty;
+        public string? OptionName { get; set; } = string.Empty;
+        public string? OptionValue  { get; set; } = string.Empty;
 
     }
 }

@@ -10,7 +10,7 @@ namespace ECommerce.Models
         [Key]
         public int Id { get; set; }
         public string ModuleName { get; set; } = string.Empty;
-        public string FilterByOd { get; set; } = string.Empty;
+        public string? FilterById { get; set; } = string.Empty;
         public int Rank { get; set; }
 
     }

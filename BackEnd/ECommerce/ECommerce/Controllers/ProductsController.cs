@@ -4,106 +4,100 @@ using Microsoft.AspNetCore.Mvc;
 using ECommerce.Repositories;
 using ECommerce.DTOs;
 using ECommerce.Models;
+using ECommerce.Services;
 
 namespace ECommerce.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/ecommerce/[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductRepository _products;
+        private readonly IProductService _productService;
 
-        public ProductsController(IProductRepository products)
+        public ProductsController(IProductService productService)
         {
-            _products = products;
+            _productService = productService;
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var dtos = _products.GetAll().Select(p => new ProductDto
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Description = p.Description,
-                Price = p.Price,
-                Stock = p.Stock
-            });
-            return Ok(dtos);
+            return Ok(await _productService.GetProductsByPageAsync());
         }
 
-        [HttpGet("{id:int}")]
-        public IActionResult Get(int id)
-        {
-            var p = _products.Get(id);
-            if (p == null) return NotFound();
-            var dto = new ProductDto
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Description = p.Description,
-                Price = p.Price,
-                Stock = p.Stock
-            };
-            return Ok(dto);
-        }
 
-        [HttpPost]
-        public IActionResult Create([FromBody] ProductCreateDto dto)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+        //[HttpGet("{id:int}")]
+        //public IActionResult Get(int id)
+        //{
+        //    var p = _products.Get(id);
+        //    if (p == null) return NotFound();
+        //    var dto = new ProductDto
+        //    {
+        //        Id = p.Id,
+        //        Name = p.Name,
+        //        Description = p.Description,
+        //        Price = p.Price,
+        //        Stock = p.Stock
+        //    };
+        //    return Ok(dto);
+        //}
 
-            var product = new Product
-            {
-                Name = dto.Name,
-                Description = dto.Description,
-                Price = dto.Price,
-                Stock = dto.Stock
-            };
+        //[HttpPost]
+        //public IActionResult Create([FromBody] ProductCreateDto dto)
+        //{
+        //    if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var created = _products.Create(product);
+        //    var product = new Product
+        //    {
+        //        Name = dto.Name,
+        //        Description = dto.Description,
+        //        Price = dto.Price,
+        //        Stock = dto.Stock
+        //    };
 
-            var result = new ProductDto
-            {
-                Id = created.Id,
-                Name = created.Name,
-                Description = created.Description,
-                Price = created.Price,
-                Stock = created.Stock
-            };
+        //    var created = _products.Create(product);
 
-            return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
-        }
+        //    var result = new ProductDto
+        //    {
+        //        Id = created.Id,
+        //        Name = created.Name,
+        //        Description = created.Description,
+        //        Price = created.Price,
+        //        Stock = created.Stock
+        //    };
 
-        [HttpPut("{id:int}")]
-        public IActionResult Update(int id, [FromBody] ProductUpdateDto dto)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+        //    return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
+        //}
 
-            var existing = _products.Get(id);
-            if (existing == null) return NotFound();
+        //[HttpPut("{id:int}")]
+        //public IActionResult Update(int id, [FromBody] ProductUpdateDto dto)
+        //{
+        //    if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            existing.Name = dto.Name;
-            existing.Description = dto.Description;
-            existing.Price = dto.Price;
-            existing.Stock = dto.Stock;
+        //    var existing = _products.Get(id);
+        //    if (existing == null) return NotFound();
 
-            var ok = _products.Update(existing);
-            if (!ok) return StatusCode(500, "Unable to update product.");
+        //    existing.Name = dto.Name;
+        //    existing.Description = dto.Description;
+        //    existing.Price = dto.Price;
+        //    existing.Stock = dto.Stock;
 
-            return NoContent();
-        }
+        //    var ok = _products.Update(existing);
+        //    if (!ok) return StatusCode(500, "Unable to update product.");
 
-        [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
-        {
-            var existing = _products.Get(id);
-            if (existing == null) return NotFound();
+        //    return NoContent();
+        //}
 
-            var ok = _products.Delete(id);
-            if (!ok) return StatusCode(500, "Unable to delete product.");
+        //[HttpDelete("{id:int}")]
+        //public IActionResult Delete(int id)
+        //{
+        //    var existing = _products.Get(id);
+        //    if (existing == null) return NotFound();
 
-            return NoContent();
-        }
+        //    var ok = _products.Delete(id);
+        //    if (!ok) return StatusCode(500, "Unable to delete product.");
+
+        //    return NoContent();
+        //}
     }
 }
