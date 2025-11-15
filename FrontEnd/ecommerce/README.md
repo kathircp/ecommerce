@@ -4,7 +4,7 @@ O projeto WebStore Angular está em desenvolvimento, trata-se de uma loja virtua
 
 This ecommerce project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1.
 
-## Preview
+## Preview 
 
 ![Header ecommerce with shopping cart icon](./src/assets/ecommerce-angular-14-Cida-Luna-IT-Developer-3.gif)
 
