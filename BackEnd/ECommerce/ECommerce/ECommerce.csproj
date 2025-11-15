@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DBScripts\" />
     <Folder Include="PhotoGallery\Kurtas\" />
     <Folder Include="PhotoGallery\Sarees\" />
   </ItemGroup>
