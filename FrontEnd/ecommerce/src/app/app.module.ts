@@ -30,6 +30,7 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import {MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FormsModule } from '@angular/forms';
     ProductBoxComponent,
     CartComponent,
     CarouselComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,17 @@
+/* styles.scss */
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the container takes up at least the full height of the viewport */
+  margin: 0; /* Removes default body margins */
+}
+
+app-header, app-footer {
+  /* You can add specific styling here */
+  flex-shrink: 0; /* Prevents the header/footer from shrinking */
+}
+
+main {
+  flex: 1 0 auto; /* Allows the main content area to grow and push the footer down */
+}

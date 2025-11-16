@@ -11,7 +11,7 @@
   <mat-drawer-content class="p-6">
 
     <div class="carousel-wrapper">    
-      <app-carousel [images]="['assets/hero-1.jpg','assets/hero-2.jpg','assets/hero-3.jpg']" [interval]="5000"></app-carousel>
+      <app-carousel [images]="images" [interval]="5000"></app-carousel>
     </div>
     <app-products-header (columnsCountChange)="onColumnsCountChange($event)"></app-products-header>
 
@@ -24,6 +24,7 @@
         [fullWidthMode]="cols === 1"></app-product-box>
       </mat-grid-tile>
     </mat-grid-list>
-
+    <app-footer></app-footer>
   </mat-drawer-content>
+  
 </mat-drawer-container>
