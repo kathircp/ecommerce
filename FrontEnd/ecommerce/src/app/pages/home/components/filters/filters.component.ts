@@ -11,7 +11,7 @@ export class FiltersComponent implements OnInit {
   blouseFilter = ["include","Exclude"];
   rangeFilter = ["0-1000", "1000-2000", "2000-3000"];
 
-  showFilterPanel: boolean = false;
+  showFilterPanel: boolean = true;
   
   @Input() selectedCategory: any;
   @Output() showCategory = new EventEmitter<string>(); 
@@ -21,17 +21,20 @@ export class FiltersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(3333, this.selectedCategory)
+    console.log(1222,this.showCategory);
+    console.log(1333,this.showFilterPanel);
+    console.log(23333, this.selectedCategory)
   }
 
   onShowCategory(category: string): void {    
+    console.log('Category selected:', category);
     this.showCategory.emit(category);
   }
 
   onClose(): void{
     this.closeFilter.emit();
   }
-  toggleFilterPanel(): void {
-    this.showFilterPanel = !this.showFilterPanel; // Toggles the boolean value
-  }
+  // toggleFilterPanel(): void {
+  //   this.showFilterPanel = !this.showFilterPanel; // Toggles the boolean value
+  // }
 }

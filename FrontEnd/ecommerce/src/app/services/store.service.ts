@@ -16,5 +16,10 @@ export class StoreService {
       `${STORE_BASE_URL}/products?limit=${limit}`
     )
   }
+  getProduct(id: number): Observable<Product>{
+    return this.httpClient.get<Product>(
+      `${STORE_BASE_URL}/products/${id}`
+    )
+  }
 
 }

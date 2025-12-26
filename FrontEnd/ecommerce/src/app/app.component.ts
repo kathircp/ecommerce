@@ -9,7 +9,7 @@ import { CartService } from './services/cart.service';
 })
 export class AppComponent implements OnInit{
 
-  title = 'E-commerce Luna';
+  title = 'E-commerce';
   cart: Cart = { items: []};
   constructor(private cartService: CartService){}
 

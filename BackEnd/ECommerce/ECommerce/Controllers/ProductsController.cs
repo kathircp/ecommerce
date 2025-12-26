@@ -26,21 +26,11 @@ namespace ECommerce.Controllers
         }
 
 
-        //[HttpGet("{id:int}")]
-        //public IActionResult Get(int id)
-        //{
-        //    var p = _products.Get(id);
-        //    if (p == null) return NotFound();
-        //    var dto = new ProductDto
-        //    {
-        //        Id = p.Id,
-        //        Name = p.Name,
-        //        Description = p.Description,
-        //        Price = p.Price,
-        //        Stock = p.Stock
-        //    };
-        //    return Ok(dto);
-        //}
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            return Ok(await _productService.Get(id));           
+        }
 
         //[HttpPost]
         //public IActionResult Create([FromBody] ProductCreateDto dto)

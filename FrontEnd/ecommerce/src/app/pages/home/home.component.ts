@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { StoreService } from 'src/app/services/store.service';
 import { CartService } from './../../services/cart.service';
+import { ConstantPool } from '@angular/compiler';
 
 
 const ROWS_HEIGHT: { [id:number]: number } = { 1: 400, 2: 380, 3: 335, 4: 350};
@@ -42,43 +43,27 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.images = ['assets/PhotoGallery/Hero/1.png', 'assets/PhotoGallery/Hero/2.png', 'assets/PhotoGallery/Hero/3.png', 'assets/PhotoGallery/Hero/4.png'];
     this.getProducts();
-    this.breakpoint.observe([Breakpoints.XSmall, Breakpoints.Small]).subscribe(result => {
-      // Prefer XSmall -> 1 column, Small -> 2 columns, otherwise desktop (4)
-      if (result.breakpoints[Breakpoints.XSmall]) {
-        this.drawerMode = 'over';
-        this.showFilters = false;
-        this.showCarousel = false;
-        this.cols = 1;
-        this.rowHeight = ROWS_HEIGHT[this.cols];
-      } else if (result.breakpoints[Breakpoints.Small]) {
-        this.drawerMode = 'over';
-        this.showFilters = false;
-        this.showCarousel = false;
-        this.cols = 2;
-        this.rowHeight = ROWS_HEIGHT[this.cols];
-      } else {
-        this.drawerMode = 'side';
+    
+    this.showCarousel = true;
+    this.drawerMode = 'side';
         // show filters by default on larger screens
-        this.showFilters = true;
-        this.showCarousel = true;
-        // restore default columns for larger screens
-        this.cols = 4;
-        this.rowHeight = ROWS_HEIGHT[this.cols];
-      }
-    });
+    this.showFilters = false;
+    this.showCarousel = true;
+    // restore default columns for larger screens
+    this.cols = 4;
+    this.rowHeight = ROWS_HEIGHT[this.cols];    
+   
     this.route.queryParams.subscribe(params => {
       const cat = params['category'];
       if (cat) {
         this.category = cat;
         this.showFilters = true;
       }
+      else{
+        this.showFilters = false;
+      }
     });
   }
-
-  toggleFilters(): void{
-    this.showFilters = !this.showFilters;
-  }
-
   getProducts(): void{
     this.productSubscription = this.storeService.getAllProducts(this.count, this.sort)
     .subscribe((_products)=> {
@@ -94,14 +79,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onShowCategory(newCategory: string): void{
+    console.log('Showing category:', newCategory);
     this.category = newCategory;
   }
    openFilter(category: any) {
+    console.log('Opening filter for category:', category);
     this.activeCategory = category;
     this.showFilters = true;
   }
 
   closeFilter() {
+    console.log('Closing filter');
     this.showFilters = false;
     this.activeCategory = null;
   }

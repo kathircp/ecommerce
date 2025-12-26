@@ -12,6 +12,7 @@ export class ProductBoxComponent implements OnInit {
   @Input() product: Product | undefined;
   @Output() addToCart = new EventEmitter();
 
+  selectedProduct: Product | undefined;
   constructor() { }
 
   ngOnInit(): void {
@@ -20,5 +21,13 @@ export class ProductBoxComponent implements OnInit {
   onAddToCart(): void{
     this.addToCart.emit(this.product);
   }
-
+  openQuickView() {
+    this.selectedProduct = this.product;
+  }  
+  closeQuickView() {
+    this.selectedProduct = undefined;
+  }
+  addToCartSelected(product: Product) {
+    this.addToCart.emit(product);
+  }
 }

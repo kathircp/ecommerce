@@ -9,22 +9,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartComponent implements OnInit {
 
-  cart: Cart = { items: [
-  {
-    product: 'https://via.placeholder.com/150',
-    name: 'snickers',
-    price: 150,
-    quantity: 1,
-    id: 1
-  },
-  {
-    product: 'https://via.placeholder.com/150',
-    name: 'snickers',
-    price: 120,
-    quantity: 5,
-    id: 2
-  },
-]};
+  cart: Cart = { items: []};
 
   dataSource: Array<CartItem> = [];
   displayedColumns: Array<string> = [

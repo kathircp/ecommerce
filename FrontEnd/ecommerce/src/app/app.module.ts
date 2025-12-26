@@ -26,11 +26,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { CartService } from './services/cart.service';
 import { StoreService } from './services/store.service';
 import { CarouselComponent } from './components/carousel/carousel.component';
-import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
 import {MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CommonModule } from '@angular/common';
+import { ProductItemDetailComponent } from './pages/product-item-detail/product-item-detail.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { FooterComponent } from './footer/footer.component';
     CartComponent,
     CarouselComponent,
     LoginDialogComponent,
-    FooterComponent
+    FooterComponent,
+    ProductItemDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -66,8 +69,8 @@ import { FooterComponent } from './footer/footer.component';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    FormsModule
-    
+    FormsModule,
+    CommonModule
   ],
   providers: [CartService, StoreService],
   bootstrap: [AppComponent]

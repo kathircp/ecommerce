@@ -19,5 +19,12 @@ namespace ECommerce.Services
             var dtoResponse = _mapper.Map<List<ProductDto>>(repoResponse);
             return dtoResponse;
         }
+        public async Task<ProductDto?> Get(int id)
+        {
+            var product = _productRepository.Get(id);
+            if (product == null) return null;
+            var dtoResponse = _mapper.Map<ProductDto>(product);
+            return dtoResponse;
+        }
     }
 }

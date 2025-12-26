@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from './../../services/cart.service';
-import { LoginDialogComponent } from 'src/app/login-dialog/login-dialog.component';
+import { LoginDialogComponent } from 'src/app/components/login-dialog/login-dialog.component';
 import {
   MatDialog,
   MatDialogActions,
@@ -86,7 +86,7 @@ export class HeaderComponent {
         const modulesSarees = this.indexpage.filter(item => item.moduleName == "Sarees")
         const distinctSarees: string[] = [...new Set(modulesSarees.map(item => item.categoryName))];
         distinctSarees.forEach((item: string) => {
-          this.addMenuItemSarees(item, undefined, `/${item}`);       
+          this.addMenuItemSarees(item, undefined, `/home`);       
         });
         const modulesKurtas = this.indexpage.filter(item => item.moduleName == "Kurthas")
         const distinctKurtas: string[] = [...new Set(modulesKurtas.map(item => item.categoryName))];

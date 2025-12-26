@@ -1,0 +1,36 @@
+
+<mat-card class="product-card">
+  <div class="product-container">
+
+    <!-- Left: Image -->
+    <div class="image-section">
+      <img src='{{ product?.imageUrl}}' alt="Product Image" />
+    </div>
+
+    <!-- Right: Description -->
+    <div class="details-section">
+      <h2 class="product-title">{{ product?.name }}</h2>
+      <p class="product-price">₹{{ product?.price }}</p>
+
+      <p class="product-description">
+        {{ product?.description }}
+        Angular Material is a powerful UI component library designed for Angular applications, enabling developers to create consistent and themeable user interfaces. It is inspired by Google's Material Design and includes a robust theming system that allows customization of component appearances. Angular Material provides a wide range of pre-built components that integrate seamlessly with Angular, making it easier to build responsive and interactive applications. To get started, developers can follow setup guides available on the official
+      </p>
+
+      
+      <button mat-raised-button color="primary" (click)="addToCart()">
+        <mat-icon>shopping_cart</mat-icon>
+        Add to Cart
+      </button>
+      <button
+       mat-raised-button
+        color="secondary"
+        [routerLink]="['/']"
+        class="back-btn">
+        <mat-icon>arrow_back</mat-icon>
+        Back
+    </button>
+    </div>  
+  </div>
+</mat-card>
+

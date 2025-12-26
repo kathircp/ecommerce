@@ -76,19 +76,19 @@
       <mat-menu #categoriesMenuSarees="matMenu">
       <button mat-menu-item *ngFor="let item of menuItemsSarees"
           (click)="item.action && item.action()"
-          [routerLink]="item.routerLink">
+          [routerLink]="item.routerLink" [queryParams]="{ category: 'Sarees' }">
             {{ item.label }}
       </button>
       </mat-menu>
       <mat-menu #categoriesMenuKurtas="matMenu">
-      <button mat-menu-item *ngFor="let item of menuItemsKurtas"s         
-          [routerLink]="item.routerLink">
+      <button mat-menu-item *ngFor="let item of menuItemsKurtas"        
+          [routerLink]="item.routerLink" [queryParams]="{ category: 'Kurtas' }">
             {{ item.label }}
       </button>
       </mat-menu>      
       <mat-menu #categoriesMenuBlouses="matMenu">
       <button mat-menu-item *ngFor="let item of menuItemsBlouses"          
-          [routerLink]="item.routerLink">
+          [routerLink]="item.routerLink"  [queryParams]="{ category: 'Blouses' }">
             {{ item.label }}
       </button>
       </mat-menu>       
