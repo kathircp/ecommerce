@@ -1,0 +1,29 @@
+<mat-card>
+  <h3>Select Payment Method</h3>
+
+  <form [formGroup]="paymentForm">
+
+    <mat-radio-group formControlName="paymentMode">
+
+      <mat-radio-button value="COD">
+        Cash on Delivery
+      </mat-radio-button>
+
+      <br /><br />
+
+      <mat-radio-button value="ONLINE">
+        Online Payment (UPI / Card)
+      </mat-radio-button>
+
+    </mat-radio-group>
+
+  </form>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="pay-btn"
+    (click)="placeOrder()">
+    Place Order
+  </button>
+</mat-card>

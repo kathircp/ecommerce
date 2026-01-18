@@ -44,7 +44,8 @@
     <div class="p-3 divide-y divide-solid">
       <div class="pb-3 flex justify-between">
         <span class="mr-16">{{ itemsQuantity }} Items</span>
-        <a routerLink="cart">View cart</a>
+       
+        <a  mat-raised-button  color="primary"  routerLink="/cart"  class="booking-btn">  View Cart</a>
       </div>
       <div *ngIf="cart.items.length" class="py-3">
 

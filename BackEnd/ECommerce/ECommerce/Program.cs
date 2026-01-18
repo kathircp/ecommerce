@@ -1,4 +1,5 @@
 using ECommerce.AutoMapper;
+using ECommerce.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -85,12 +86,14 @@ var jwtSettings = new ECommerce.Services.JwtSettings
 
 builder.Services.AddSingleton(jwtSettings);
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
-builder.Services.AddScoped<ECommerce.Services.IUserRepository, ECommerce.Services.InMemoryUserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ECommerce.Services.ITokenService, ECommerce.Services.TokenService>(sp => new ECommerce.Services.TokenService(jwtSettings));
 builder.Services.AddScoped<ECommerce.Services.IPageService, ECommerce.Services.PageService>();
 builder.Services.AddScoped<ECommerce.Services.IProductService, ECommerce.Services.ProductService>();
 builder.Services.AddScoped<ECommerce.Repositories.IIndexPageRepository, ECommerce.Repositories.IndexPageRepository>();
 builder.Services.AddScoped<ECommerce.Repositories.IProductRepository, ECommerce.Repositories.ProductRepository>();
+builder.Services.AddScoped<ECommerce.Repositories.IUserDetailRepository, ECommerce.Repositories.UserDetailRepository>();
+builder.Services.AddScoped<ECommerce.Services.IUserDetailService, ECommerce.Services.UserDetailService>();
 //
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>

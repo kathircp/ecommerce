@@ -25,12 +25,20 @@ export class CartService {
 
     this.cart.next({ items });
     this._snackBar.open('1 item added to cart.', 'Ok', { duration: 3000 }); // 3 seconds
-    console.log(this.cart.value);
+    //console.log(this.cart.value);
   }
 
   getTotal(items: Array<CartItem>): number{
     return items.map((item)=> item.price * item.quantity)
     .reduce((prev, current) => prev + current, 0)
+  }
+  getItems(){
+    const items = [...this.cart.value.items];
+    return items;
+  }
+  getTotalValue(){
+    const items = this.getItems();
+    return this.getTotal(items);
   }
 
   clearCart(): void{

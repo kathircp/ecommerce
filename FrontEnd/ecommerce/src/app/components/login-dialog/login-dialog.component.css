@@ -31,3 +31,18 @@ margin-right:10px;
 margin-right:20px;
 /*so the last one dont push the div thas giving the space only between the inputs*/
 }
+.login-card {
+  width: 320px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.profile img {
+  border-radius: 50%;
+  margin-bottom: 10px;
+}

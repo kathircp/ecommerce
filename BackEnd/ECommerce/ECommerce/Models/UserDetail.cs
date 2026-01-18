@@ -9,15 +9,17 @@ namespace ECommerce.Models
         [Key]
         public int Id { get; set; }
         public int UserId { get; set; }
-        public string Firstname { get; set; } = null!;
-        public string LastName { get; set; } = null!;
+        public string FullName { get; set; } = null!;        
         public string Email { get; set; } = string.Empty;
         public string PhoneNo { get; set; } = string.Empty;
-        public string Address { get; set; } = string.Empty;
+        public string AddressLine1 { get; set; } = string.Empty;
+        public string AddressLine2 { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string State { get; set; } = string.Empty;
         public string PostalCode { get; set; } = string.Empty;
         public string Country { get; set; } = string.Empty;  
-        public string AlterNamePhoneNo { get; set; } = string.Empty;
+        public string AlternatePhoneNo { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set;  }
+        public bool IsPrimary { get; set; } = true;
     }
 }

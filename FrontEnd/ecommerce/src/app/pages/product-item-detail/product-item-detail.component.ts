@@ -20,13 +20,13 @@ export class ProductItemDetailComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = Number(params.get('id'));
-      console.log(1111,this.id);
+      //console.log(1111,this.id);
       
     })
     this.productService.getProduct(this.id!).subscribe(res =>{
       this.product = res;
       //this.product = this.getProductById(this.id)      
-      console.log(2222,this.product)
+      //console.log(2222,this.product)
     })
     
   }

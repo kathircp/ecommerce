@@ -1,0 +1,19 @@
+mat-card {
+  padding: 16px;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.total {
+  font-size: 18px;
+}

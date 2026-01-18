@@ -21,9 +21,9 @@ export class FiltersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(1222,this.showCategory);
-    console.log(1333,this.showFilterPanel);
-    console.log(23333, this.selectedCategory)
+    // console.log(1222,this.showCategory);
+    // console.log(1333,this.showFilterPanel);
+    // console.log(23333, this.selectedCategory)
   }
 
   onShowCategory(category: string): void {    

@@ -1,12 +1,9 @@
-<mat-card>
-    <mat-card-header>
+<mat-card class="login-card">
+    <mat-card-header  *ngIf="!loggedIn">
         <h2>User Login</h2>
     </mat-card-header>
     <mat-card-content>
-        <form #loginForm="ngForm" (submit)="login()">        
-            <mat-error *ngIf="!loginValid">
-                Please provide valid details.
-            </mat-error>
+        <form #loginForm="ngForm" (submit)="onLogin()" *ngIf="!loggedIn"> 
             <mat-form-field>
                 <mat-label>User Name</mat-label>
                 <input matInput placeholder="User Name" [(ngModel)]="user" name="user" required>
@@ -17,15 +14,33 @@
                     required>
             </mat-form-field>
             <div class="Container">
-                 <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Login</button>
+                 <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid" (click)="onLogin()">Login</button>
                
                  <button mat-raised-button color="primary" >Sign Up</button>
             </div>
-        </form>
+        </form> 
+        <button *ngIf="loggedIn" (click)="signOut()">
+        Sign Out
+      </button>       
     </mat-card-content>
-</mat-card>
 
-<footer>
-    Copyright © {{year}}
-    <a href="#" rel="" target="_blank" title="Mayon Sarees">Mayon Sarees</a>
-</footer>
+
+  <!--button mat-raised-button color="accent"
+          *ngIf="!loggedIn"
+          (click)="signInWithFB()">
+    Sign in with Facebook
+  </button>
+
+  <div *ngIf="loggedIn" class="profile">
+    <img [src]="socialUser?.photoUrl" width="80" />
+    <p>{{ socialUser?.name }}</p>
+    <p>{{ socialUser?.email }}</p>
+
+    <button mat-stroked-button color="warn"
+            (click)="signOut()">
+      Logout
+    </button>    
+  </div-->
+
+  
+</mat-card>

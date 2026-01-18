@@ -107,7 +107,7 @@ export class HeaderComponent {
   
   onUserClick(){
     // Placeholder - open login dialog or navigate to account
-    console.log('User icon clicked');
+    //console.log('User icon clicked');
      const dialogRef = this.dialog.open(LoginDialogComponent, {
         width: '400px', // Customize width
         // Add other configuration options like data, disableClose, etc.

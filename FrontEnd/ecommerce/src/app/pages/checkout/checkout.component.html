@@ -1,0 +1,20 @@
+<mat-stepper linear>
+
+  <!-- Address -->
+  <mat-step label="Delivery Address">
+    <app-address></app-address>
+    <button mat-button matStepperNext>Next</button>
+  </mat-step>
+
+  <!-- Order Summary -->
+  <mat-step label="Order Summary">
+    <app-order-summary></app-order-summary>
+    <button mat-button matStepperNext>Next</button>
+  </mat-step>
+
+  <!-- Payment -->
+  <mat-step label="Payment">
+    <app-payment (paymentCompleted)="onPaymentDone($event)"></app-payment>    
+  </mat-step>
+
+</mat-stepper>

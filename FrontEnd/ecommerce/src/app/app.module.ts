@@ -27,13 +27,29 @@ import { CartService } from './services/cart.service';
 import { StoreService } from './services/store.service';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './components/footer/footer.component';
 import { CommonModule } from '@angular/common';
+import { MatStepperModule } from '@angular/material/stepper';
 import { ProductItemDetailComponent } from './pages/product-item-detail/product-item-detail.component';
-
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from '@abacritt/angularx-social-login';
+import { AuthService } from './services/auth.service';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { AddressComponent } from './pages/address/address.component';
+import { PaymentComponent } from './pages/payment/payment.component';
+import { OrderSummaryComponent } from './pages/order-summary/order-summary.component';
+import { ReactiveFormsModule  } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
+import { OrderListComponent } from './pages/order-list/order-list.component';
+import { OrderTrackComponent } from './pages/order-track/order-track.component';
+import { LoginComponent } from './auth/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +62,14 @@ import { ProductItemDetailComponent } from './pages/product-item-detail/product-
     CarouselComponent,
     LoginDialogComponent,
     FooterComponent,
-    ProductItemDetailComponent
+    ProductItemDetailComponent,
+    CheckoutComponent,
+    AddressComponent,
+    PaymentComponent,
+    OrderSummaryComponent,
+    OrderListComponent,
+    OrderTrackComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -70,9 +93,34 @@ import { ProductItemDetailComponent } from './pages/product-item-detail/product-
     MatInputModule,
     MatIconModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    SocialLoginModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatDividerModule,
+    MatRadioModule 
   ],
-  providers: [CartService, StoreService],
+  providers: [CartService, StoreService,AuthService, {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '63281300882-9std1drh0eqn0t4u573u3kudgd2nj415.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider(
+              'FACEBOOK_APP_ID'
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

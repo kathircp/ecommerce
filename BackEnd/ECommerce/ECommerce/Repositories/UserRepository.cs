@@ -5,21 +5,23 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ECommerce.Services
+namespace ECommerce.Repositories
 {
     public interface IUserRepository
     {
-        User? GetByUsername(string username);        
+        User? GetByUsername(string username);   
+        
     }
 
-    public class InMemoryUserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly ECommerceDbContext _db;
       
-        public InMemoryUserRepository(ECommerceDbContext db)
+        public UserRepository(ECommerceDbContext db)
         {
             _db = db;
         }
+
         public User? GetByUsername(string userName)
         {
             return _db.Users.Where(x=> x.Username.ToUpper() == userName.ToUpper())?.FirstOrDefault();

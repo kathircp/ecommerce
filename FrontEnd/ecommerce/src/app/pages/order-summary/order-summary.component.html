@@ -1,0 +1,32 @@
+<mat-card>
+
+  <h3>Order Summary</h3>
+
+  <div *ngFor="let item of cartItems" class="item-row">
+    <div>
+      <strong>{{ item.name }}</strong>
+      <p>Qty: {{ item.quantity }}</p>
+    </div>
+    <div>₹{{ item.price * item.quantity }}</div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="price-row">
+    <span>Subtotal</span>
+    <span>₹{{ subtotal }}</span>
+  </div>
+
+  <div class="price-row">
+    <span>Delivery</span>
+    <span>₹{{ deliveryCharge }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="price-row total">
+    <strong>Total</strong>
+    <strong>₹{{ total }}</strong>
+  </div>
+
+</mat-card>

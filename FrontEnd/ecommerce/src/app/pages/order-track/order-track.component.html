@@ -1,0 +1,8 @@
+<h2>Tracking Order #{{ order?.id }}</h2>
+
+<mat-stepper [selectedIndex]="currentStep">
+
+  <mat-step *ngFor="let step of steps" [label]="step">
+  </mat-step>
+
+</mat-stepper>

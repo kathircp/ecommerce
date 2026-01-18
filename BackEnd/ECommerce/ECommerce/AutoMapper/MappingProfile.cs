@@ -12,7 +12,7 @@ namespace ECommerce.AutoMapper
             CreateMap<FilterDto, FilterBy>();
             CreateMap<Product, ProductDto>();
             CreateMap<ProductDto, Product>();
-
+            CreateMap<UserDetailDto, UserDetail>().ReverseMap();
         }
         
     }

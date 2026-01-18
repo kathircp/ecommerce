@@ -38,4 +38,8 @@ namespace ECommerce.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-                   }            }}
+           
+        }
+        
+    }
+}
