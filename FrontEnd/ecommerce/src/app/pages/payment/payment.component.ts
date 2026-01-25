@@ -29,6 +29,7 @@ export class PaymentComponent {
     const paymentMode = this.paymentForm.value.paymentMode;
 
     if (paymentMode === 'COD') {
+      console.log('COD payment completed');
       this.paymentCompleted.emit({
         mode: 'COD',
         status: 'SUCCESS'

@@ -1,8 +1,16 @@
 export interface Order {
-  id: string;
-  orderDate: string;
-  totalAmount: number;
-  status: string;
+  userName: string;
+  createdAt: string;
+  total: number;
+  orderStatus: string;
+  remarks: string;
   items: any[];
   address: any;
+}
+export interface OrderItem{
+  productId: string;
+  quantity: number;
+  unitPrice: number;
+  productName: string;
+  lineTotal : number;
 }

@@ -16,9 +16,6 @@ namespace ECommerce.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public decimal Total { get; set; }
-
-        //public List<OrderItem> Items { get; set; } = new List<OrderItem>();
-
-        //public decimal Total => Items.Sum(i => i.LineTotal);
+        
     }
 }

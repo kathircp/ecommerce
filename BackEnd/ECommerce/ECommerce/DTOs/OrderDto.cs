@@ -5,9 +5,10 @@ namespace ECommerce.DTOs
 {
     public class OrderItemDto
     {
+        public int OrderId { get; set; }
         public int ProductId { get; set; }
 
-        public string ProductName { get; set; } = null!;
+        public string ProductName { get; set; }
 
         public decimal UnitPrice { get; set; }
 
@@ -17,14 +18,15 @@ namespace ECommerce.DTOs
     }
 
     public class OrderDto
-    {
-        public int Id { get; set; }
-
+    {   
         public DateTime CreatedAt { get; set; }
-
-        public List<OrderItemDto> Items { get; set; } = new();
-
+        public string UserName { get; set; }
+        public string OrderStatus { get; set; } = null!;
+        public string Remarks { get; set; }
         public decimal Total { get; set; }
+        public List<OrderItemDto> Items { get; set; } = new();
+        public UserDetailDto Address { get; set; } = null!;
+
     }
 
 }

@@ -37,6 +37,7 @@ export class LoginDialogComponent implements OnInit {
         next: (res) => {
           // store token / user data
           localStorage.setItem('token', res.token);
+          localStorage.setItem('userName', this.user);
           this.dialogRef.close(); // closes login popup
           this.loggedIn = true;
           // navigate → login component is destroyed

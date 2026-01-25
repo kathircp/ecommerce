@@ -5,137 +5,48 @@ using ECommerce.Repositories;
 using ECommerce.DTOs;
 using ECommerce.Models;
 using Microsoft.AspNetCore.Authorization;
+using ECommerce.Services;
 
 namespace ECommerce.Controllers
 {    
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/ecommerce/[controller]")]
     public class OrdersController : ControllerBase
     {
-        private readonly IOrderRepository _orders;
-        
+        private readonly IOrderService _orderService;        
 
-        public OrdersController(IOrderRepository orders)
+        public OrdersController(IOrderService orderSerivice)
         {
-            _orders = orders;
-           
+            _orderService = orderSerivice;           
         }
 
         [HttpGet]       
         public IActionResult GetAll()
         {
-            var orders = _orders.GetAll();
-            foreach (var o in orders)
-            {
-                
-                //var dto = new OrderDto
-                //{
-                //    Id = o.Id,
-                //    CreatedAt = o.CreatedAt,
-                //    Items = o.Items.Select(i => new OrderItemDto
-                //    {
-                //        ProductId = i.ProductId,
-                //        ProductName = i.ProductName,
-                //        UnitPrice = i.UnitPrice,
-                //        Quantity = i.Quantity,
-                //        LineTotal = i.LineTotal
-                //    }).ToList(),
-                //    Total = o.Total
-                //};
-            }
-            //var orderItems = _orders.SelectMany(o => o.Items).ToList(); // Eager load items if necessary
-            //var dtos = _orders.GetAll().Select(o => new OrderDto
-            //{
-            //    Id = o.Id,
-            //    CreatedAt = o.CreatedAt,
-            //    Items = o.Items.Select(i => new OrderItemDto
-            //    {
-            //        ProductId = i.ProductId,
-            //        ProductName = i.ProductName,
-            //        UnitPrice = i.UnitPrice,
-            //        Quantity = i.Quantity,
-            //        LineTotal = i.LineTotal
-            //    }).ToList(),
-            //    Total = o.Total
-            //});
+            var orders = _orderService.GetAll();
             return Ok(orders);
         }
 
         [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
-            var o = _orders.Get(id);
-            if (o == null) return NotFound();
-            var dto = new OrderDto
-            {
-                //Id = o.Id,
-                //CreatedAt = o.CreatedAt,
-                //Items = o.Items.Select(i => new OrderItemDto
-                //{
-                //    ProductId = i.ProductId,
-                //    ProductName = i.ProductName,
-                //    UnitPrice = i.UnitPrice,
-                //    Quantity = i.Quantity,
-                //    LineTotal = i.LineTotal
-                //}).ToList(),
-                //Total = o.Total
-            };
-            return Ok(dto);
+            var order = _orderService.Get(id);
+            if (order == null) return NotFound();            
+            return Ok(order);
         }
 
         [HttpPost]        
         public IActionResult Create([FromBody] OrderCreateDto create)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (create.Items == null || !create.Items.Any()) return BadRequest("Order must contain at least one item.");
-
-            // Validate products and stock
-            //var items = create.Items.Select(li =>
-            //{
-            //    var product = _products.Get(li.ProductId);
-            //    if (product == null) throw new ArgumentException($"Product not found: {li.ProductId}");
-            //    if (product.Stock < li.Quantity) throw new InvalidOperationException($"Insufficient stock for product {product.Name}");
-            //    return new OrderItem
-            //    {
-            //        ProductId = product.Id,
-            //        ProductName = product.Name,
-            //        UnitPrice = product.Price,
-            //        Quantity = li.Quantity
-            //    };
-            //}).ToList();
-
-            // Deduct stock (simple approach)
-            //foreach (var it in items)
-            //{
-            //    var prod = _products.Get(it.ProductId)!;
-            //    prod.Stock -= it.Quantity;
-            //    _products.Update(prod);
-            //}
-
-            //var order = new Order
-            //{
-            //    Items = items
-            //};
-
-            //var created = _orders.Create(order);
-
-            //var dto = new OrderDto
-            //{
-            //    Id = created.Id,
-            //    CreatedAt = created.CreatedAt,
-            //    Items = created.Items.Select(i => new OrderItemDto
-            //    {
-            //        ProductId = i.ProductId,
-            //        ProductName = i.ProductName,
-            //        UnitPrice = i.UnitPrice,
-            //        Quantity = i.Quantity,
-            //        LineTotal = i.LineTotal
-            //    }).ToList(),
-            //    Total = created.Total
-            //};
-
-            //return CreatedAtAction(nameof(Get), new { id = dto.Id }, dto);
-            return default;
+            return Ok(_orderService.Create(create));           
         }
+        [HttpPost ("CreateOrderItem")]
+        public IActionResult CreateOrderItem([FromBody] OrderDto itemDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            return Ok(_orderService.CreateItem(itemDto));
+        }        
+
     }
 }

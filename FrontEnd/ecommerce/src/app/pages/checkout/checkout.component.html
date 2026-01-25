@@ -2,19 +2,19 @@
 
   <!-- Address -->
   <mat-step label="Delivery Address">
-    <app-address></app-address>
-    <button mat-button matStepperNext>Next</button>
+    <app-address (addressSaved)="onAddressSaved($event)"></app-address>
+    <button mat-button matStepperNext color="primary">Next</button>
   </mat-step>
 
   <!-- Order Summary -->
   <mat-step label="Order Summary">
     <app-order-summary></app-order-summary>
-    <button mat-button matStepperNext>Next</button>
+    <button mat-button matStepperNext color="primary">Next</button>
   </mat-step>
 
   <!-- Payment -->
   <mat-step label="Payment">
-    <app-payment (paymentCompleted)="onPaymentDone($event)"></app-payment>    
+    <app-payment (paymentCompleted)="onPaymentDone($event)" color="primary"></app-payment>    
   </mat-step>
 
 </mat-stepper>

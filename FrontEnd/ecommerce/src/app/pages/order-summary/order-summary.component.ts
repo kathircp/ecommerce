@@ -22,7 +22,7 @@ export class OrderSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.cartItems = this.cartService.getItems();
-    this.subtotal = this.cartService.getTotalValue();
+    this.subtotal = this.cartService.getTotalValue();   
     this.calculateTotal();
   }
 

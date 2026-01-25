@@ -82,18 +82,19 @@ var jwtSettings = new ECommerce.Services.JwtSettings
     ExpireMinutes = int.TryParse(jwt["ExpireMinutes"], out var m) ? m : 60
 };
 
-
-
 builder.Services.AddSingleton(jwtSettings);
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ECommerce.Services.ITokenService, ECommerce.Services.TokenService>(sp => new ECommerce.Services.TokenService(jwtSettings));
 builder.Services.AddScoped<ECommerce.Services.IPageService, ECommerce.Services.PageService>();
 builder.Services.AddScoped<ECommerce.Services.IProductService, ECommerce.Services.ProductService>();
-builder.Services.AddScoped<ECommerce.Repositories.IIndexPageRepository, ECommerce.Repositories.IndexPageRepository>();
-builder.Services.AddScoped<ECommerce.Repositories.IProductRepository, ECommerce.Repositories.ProductRepository>();
-builder.Services.AddScoped<ECommerce.Repositories.IUserDetailRepository, ECommerce.Repositories.UserDetailRepository>();
+builder.Services.AddScoped<IIndexPageRepository, IndexPageRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IUserDetailRepository, UserDetailRepository>();
 builder.Services.AddScoped<ECommerce.Services.IUserDetailService, ECommerce.Services.UserDetailService>();
+builder.Services.AddScoped<IOrderRepository,OrderRepository>();
+builder.Services.AddScoped<ECommerce.Services.IOrderService, ECommerce.Services.OrderService>();
+builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
 //
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>

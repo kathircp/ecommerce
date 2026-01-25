@@ -10,7 +10,7 @@ namespace ECommerce.Repositories
 
         OrderItem? Get(int id);
 
-        OrderItem Create(OrderItem order);
+        bool Create(OrderItem order);
     }
     public class OrderItemsRepository : IOrderItemsRepository
     {
@@ -19,11 +19,11 @@ namespace ECommerce.Repositories
         {
             _db = db;
         }
-        public OrderItem Create(OrderItem orderItem)
+        public bool Create(OrderItem orderItem)
         {
             _db.OrderItems.Add(orderItem);
-            _db.SaveChanges();
-            return orderItem;
+            int count = _db.SaveChanges();
+            return count > 0 ? true : false;
         }
        
         public OrderItem? Get(int id)

@@ -33,6 +33,8 @@ export class LoginComponent {
     const { username, password } = this.loginForm.value;
 
     if (this.authService.login(username!, password!)) {
+      console.log('UserName', username)
+      localStorage.setItem('userName', username!);
       this.router.navigateByUrl(this.returnUrl);
     } else {
       this.error = 'Invalid username or password';
