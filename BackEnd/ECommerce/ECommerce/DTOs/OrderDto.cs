@@ -16,6 +16,12 @@ namespace ECommerce.DTOs
 
         public decimal LineTotal { get; set; }
     }
+    public class PaymentDto
+    {
+        public string Mode { get; set; } = null!;
+        public string Status { get; set; } = null!;
+        public string TransactionId { get; set; }
+    }
 
     public class OrderDto
     {   
@@ -26,6 +32,7 @@ namespace ECommerce.DTOs
         public decimal Total { get; set; }
         public List<OrderItemDto> Items { get; set; } = new();
         public UserDetailDto Address { get; set; } = null!;
+        public PaymentDto Payment { get; set; } = null!;
 
     }
 

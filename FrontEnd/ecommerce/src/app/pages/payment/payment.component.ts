@@ -32,7 +32,8 @@ export class PaymentComponent {
       console.log('COD payment completed');
       this.paymentCompleted.emit({
         mode: 'COD',
-        status: 'SUCCESS'
+        status: 'SUCCESS',
+        transactionId: 'TXN' + Date.now()
       });
     } else {
       this.startOnlinePayment();

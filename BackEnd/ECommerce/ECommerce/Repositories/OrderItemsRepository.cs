@@ -10,7 +10,7 @@ namespace ECommerce.Repositories
 
         OrderItem? Get(int id);
 
-        bool Create(OrderItem order);
+        bool Create(List<OrderItem> orderItems);
     }
     public class OrderItemsRepository : IOrderItemsRepository
     {
@@ -19,9 +19,9 @@ namespace ECommerce.Repositories
         {
             _db = db;
         }
-        public bool Create(OrderItem orderItem)
+        public bool Create(List<OrderItem> orderItems)
         {
-            _db.OrderItems.Add(orderItem);
+            _db.OrderItems.AddRange(orderItems);
             int count = _db.SaveChanges();
             return count > 0 ? true : false;
         }

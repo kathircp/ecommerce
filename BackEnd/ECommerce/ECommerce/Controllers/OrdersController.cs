@@ -42,10 +42,10 @@ namespace ECommerce.Controllers
             return Ok(_orderService.Create(create));           
         }
         [HttpPost ("CreateOrderItem")]
-        public IActionResult CreateOrderItem([FromBody] OrderDto itemDto)
+        public IActionResult CreateOrder([FromBody] OrderDto itemDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            return Ok(_orderService.CreateItem(itemDto));
+            return Ok(_orderService.CreateOrder(itemDto));
         }        
 
     }

@@ -8,6 +8,6 @@ namespace ECommerce.Services
         OrderCreateDto? Get(int id);
         OrderCreateDto? GetByCustomerId(int customerId);
         bool Create(OrderCreateDto userDetailDto);
-        bool CreateItem(OrderDto itemDto);
+        bool CreateOrder(OrderDto itemDto);
     }
 }

@@ -16,6 +16,8 @@ namespace ECommerce.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public decimal Total { get; set; }
-        
+        public string OrderStatus { get; set; } = string.Empty;
+        public string Remarks { get; set; } = string.Empty;
+
     }
 }

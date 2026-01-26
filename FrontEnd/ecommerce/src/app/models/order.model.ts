@@ -6,6 +6,7 @@ export interface Order {
   remarks: string;
   items: any[];
   address: any;
+  payment: Payment;
 }
 export interface OrderItem{
   productId: string;
@@ -13,4 +14,9 @@ export interface OrderItem{
   unitPrice: number;
   productName: string;
   lineTotal : number;
+}
+export interface Payment{
+  mode: string;
+  status: string;
+  transactionId : string;
 }

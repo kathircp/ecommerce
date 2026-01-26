@@ -13,7 +13,7 @@ namespace ECommerce.Repositories
 
         Payment? Get(int id);
 
-        Payment Create(Payment payment);
+        bool Create(Payment payment);
     }
     public class PaymentRepository : IPaymentRepository
     {
@@ -35,12 +35,12 @@ namespace ECommerce.Repositories
             return _db.Payments.Find(id);
         }
 
-        public Payment Create(Payment payment)
+        public bool Create(Payment payment)
         {
             payment.CreatedAt = DateTime.UtcNow;
             _db.Payments.Add(payment);
-            _db.SaveChanges();
-            return payment;
+            int count = _db.SaveChanges();
+            return count > 0 ? true : false;
         }
     }
 }

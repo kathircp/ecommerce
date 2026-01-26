@@ -95,6 +95,7 @@ builder.Services.AddScoped<ECommerce.Services.IUserDetailService, ECommerce.Serv
 builder.Services.AddScoped<IOrderRepository,OrderRepository>();
 builder.Services.AddScoped<ECommerce.Services.IOrderService, ECommerce.Services.OrderService>();
 builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 //
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>

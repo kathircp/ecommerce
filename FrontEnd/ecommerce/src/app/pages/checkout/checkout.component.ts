@@ -23,24 +23,8 @@ export class CheckoutComponent {
    
 
   }
-  onAddressSaved(address: any) {
-    //console.log('Address saved:', address);
+  onAddressSaved(address: any) {    
     this.address = address;
-
-      // if (address.userName == null) {
-      //   alert('Please login to save address');
-      //   return;
-      // }     
-      // this.userDetailService.saveAddress(address).subscribe({
-      //   next: (res) => {
-      //     console.log('Address saved successfully', res);
-      //     alert('Address saved successfully');          
-      //   },
-      //   error: (err) => {
-      //     console.error('Error saving address', err);
-      //   }
-      // }); 
-
   }
 
   onPaymentDone(payment: any) {
@@ -62,7 +46,7 @@ export class CheckoutComponent {
           quantity: p.quantity,
           lineTotal: p.price * p.quantity
         }
-    );
+      );
     });
     // Call backend API to create order
     // Clear cart
@@ -74,6 +58,7 @@ export class CheckoutComponent {
       orderStatus: "Booked",
       items: this.orderItems,
       address: this.address,
+      payment: payment,
       remarks: "Order placed successfully"
     };
 

@@ -12,7 +12,8 @@ namespace ECommerce.Models
         public int CustomerId { get; set; }
         public string Currency { get; set; } = null!;
         public string TransactionId { get; set; } = null!;
-        public bool Status { get; set; }
+        public string Mode { get; set; } = null!;
+        public string Status { get; set; }
         public string TransactionDesc { get; set; } = string.Empty;
         public decimal Amount { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
