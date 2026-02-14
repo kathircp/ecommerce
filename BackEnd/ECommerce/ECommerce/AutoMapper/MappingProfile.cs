@@ -17,6 +17,7 @@ namespace ECommerce.AutoMapper
             CreateMap<OrderCreateDto, OrderDto>().ReverseMap();
             CreateMap<OrderItemDto, OrderItem>().ReverseMap();
             CreateMap<PaymentDto, Payment>().ReverseMap();
+            CreateMap<FileStorageDto, FileStorage>().ReverseMap();
         }
         
     }

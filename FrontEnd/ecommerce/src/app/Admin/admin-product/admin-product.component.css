@@ -1,0 +1,38 @@
+.image-preview-container {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-image {
+  max-width: 400px;
+  max-height: 400px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.page-container {
+  padding: 24px;        /* space around page */
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;            /* space between fields */
+  max-width: 500px;     /* optional: center form */
+}
+.example-h2 {
+  margin: 10px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}

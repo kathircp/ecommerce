@@ -67,8 +67,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   getProducts(): void{
     this.productSubscription = this.storeService.getAllProducts(this.count, this.sort)
     .subscribe((_products)=> {
+      console.log('Products received:', _products);      
       this.products = _products;      
-    })
+      this.products.forEach(product => {
+        console.log('Processing product:', product.image);
+        product.imageUrl = `data:${product.image?.contentType};base64,${product.image?.fileData}`;
+        
+      });
+    });
   }
 
   onColumnsCountChange(colsNumber: number): void{

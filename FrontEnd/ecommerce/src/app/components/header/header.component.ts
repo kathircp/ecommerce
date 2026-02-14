@@ -82,7 +82,7 @@ export class HeaderComponent {
   getPageIndex(): void{
     this.productSubscription= this.indexpageService.getPageIndex()
     .subscribe((_pages)=> {
-      this.indexpage = _pages;
+      this.indexpage = _pages;    
         const modulesSarees = this.indexpage.filter(item => item.moduleName == "Sarees")
         const distinctSarees: string[] = [...new Set(modulesSarees.map(item => item.categoryName))];
         distinctSarees.forEach((item: string) => {

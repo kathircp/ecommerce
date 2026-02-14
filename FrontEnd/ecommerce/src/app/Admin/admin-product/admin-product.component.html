@@ -1,0 +1,87 @@
+<div class="page-container">
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+
+  <div class="row">
+    <mat-form-field >
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Price</mat-label>
+      <input matInput type="number" formControlName="price">
+    </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Stock</mat-label>
+      <input matInput type="number" formControlName="stock">
+    </mat-form-field>
+    
+    <mat-form-field >
+      <mat-label>Color</mat-label>
+      <input matInput formControlName="color">
+    </mat-form-field>    
+      <!-- <mat-radio-group aria-label="Select an option">
+  <mat-radio-button value="1">Option 1</mat-radio-button>
+  <mat-radio-button value="2">Option 2</mat-radio-button>
+</mat-radio-group> -->
+
+    <mat-form-field >
+      <mat-label>Updated By</mat-label>
+      <input matInput formControlName="updatedBy">
+    </mat-form-field>
+    
+    <mat-checkbox formControlName="blouse" color="primary" [checked]="true" labelPosition="after">Blouse Available</mat-checkbox>
+    
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select (selectionChange)="filterByCategory($event.value)">
+        <mat-option value="">All</mat-option>
+        <mat-option *ngFor="let c of categories" [value]="c">
+          {{c}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Discount (%)</mat-label>
+      <input matInput type="number" formControlName="discount">
+    </mat-form-field>
+
+    <div>
+      <label>Upload Image</label><br>
+      <input type="file" accept="image/*" (change)="onFileSelected($event)">
+      
+      <!-- Error Message -->
+      <div *ngIf="uploadError" style="color: red; margin-top: 8px; font-size: 0.9em;">
+        {{ uploadError }}
+      </div>
+
+      <!-- File Name Display -->
+      <div *ngIf="fileName" style="margin-top: 8px;">
+        <strong>Selected File:</strong> {{ fileName }}
+      </div>
+
+      <!-- Image Preview -->
+      <div *ngIf="imagePreview" style="margin-top: 12px; text-align: center;">
+        <img [src]="imagePreview" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 4px; border: 1px solid #ccc;">
+        <button type="button" mat-raised-button color="warn" (click)="removeImage()" style="margin-left: 8px;">
+          Remove Image
+        </button>
+      </div>
+
+
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
+      {{ isLoading ? 'Saving...' : 'Save Product' }}
+    </button>
+  </div>
+
+</form>
+</div>

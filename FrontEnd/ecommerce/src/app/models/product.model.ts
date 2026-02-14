@@ -6,6 +6,12 @@
   description: string;
   image: string;
 }*/
+export interface FileStorage{
+  contentType: string;
+  fileData: string;
+  fileName: string;
+  id: number;
+}
 export interface Product{
   id: number;
   name: string;
@@ -18,4 +24,8 @@ export interface Product{
   blouse : boolean;
   newArrival: boolean;
   imageUrl: string;
+  image : FileStorage | null;
+  createdAt: string;
+  updatedAt: string;
+  updatedBy: string;
 }

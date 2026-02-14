@@ -10,7 +10,7 @@ namespace ECommerce.Models
         public int Id { get; set; }
         public int IndexPageId { get; set; }    
         public string? CategoryName { get; set; } = string.Empty;
-        public int SubCategoryId { get; set; }
-        public int Rank { get; set; }       
+        public int? SubCategoryId { get; set; }
+        public int? Rank { get; set; }       
     }
 }

@@ -9,6 +9,8 @@ import { OrderListComponent } from './pages/order-list/order-list.component';
 import { OrderTrackComponent } from './pages/order-track/order-track.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
+import { ProductListComponent } from './Admin/product-list/product-list.component';
+import { AdminProductComponent } from './Admin/admin-product/admin-product.component';
 
 
 const routes: Routes = [
@@ -41,6 +43,9 @@ const routes: Routes = [
     path: 'login', 
     component: LoginComponent
   },
+  { path: 'admin', component: AdminProductComponent },
+  { path: 'admin/product', component: ProductListComponent } // edit
+
 ];
 
 @NgModule({

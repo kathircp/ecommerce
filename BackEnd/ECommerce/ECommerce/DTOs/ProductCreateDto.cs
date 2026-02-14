@@ -1,18 +1,16 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace ECommerce.DTOs
+﻿namespace ECommerce.DTOs
 {
     public class ProductCreateDto
     {
-        [Required]
         public string Name { get; set; } = null!;
-
         public string? Description { get; set; }
-
-        [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
-
-        [Range(0, int.MaxValue)]
         public int Stock { get; set; }
+        public string CategoryName { get; set; }
+        public string Color { get; set; } = null!;
+        public int Discount { get; set; }
+        public bool IncludeBlouse { get; set; }
+        public string UpdatedBy { get; set; } = null!;
+        public IFormFile Image { get; set; }
     }
 }

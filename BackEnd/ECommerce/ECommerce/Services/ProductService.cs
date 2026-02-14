@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using ECommerce.DTOs;
+using ECommerce.Models;
 using ECommerce.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Services
 {
@@ -17,6 +21,11 @@ namespace ECommerce.Services
         {
             var repoResponse = await _productRepository.GetAll(limit);
             var dtoResponse = _mapper.Map<List<ProductDto>>(repoResponse);
+            foreach (var dtoRes in dtoResponse)
+            {
+                var fileStorage = await _productRepository.DownloadImage(Convert.ToInt32(dtoRes.ImageUrl));
+                dtoRes.Image = _mapper.Map<FileStorageDto>(fileStorage); 
+            }
             return dtoResponse;
         }
         public async Task<ProductDto?> Get(int id)
@@ -25,6 +34,27 @@ namespace ECommerce.Services
             if (product == null) return null;
             var dtoResponse = _mapper.Map<ProductDto>(product);
             return dtoResponse;
+        }
+        public async Task<bool> Create(ProductDto productDto)
+        {
+            var product = _mapper.Map<Product>(productDto);
+            var createdProduct = _productRepository.Create(product);
+            return createdProduct;
+        }
+
+        public int? FindCategoryByName(string categoryName)
+        {
+            return _productRepository.FindCategoryByName(categoryName);
+        }
+
+        public int UploadImage(FileStorageDto fileStorageDto)
+        {
+            var fileStorage = _mapper.Map<FileStorage>(fileStorageDto);
+            return _productRepository.UploadImage(fileStorage);
+        }
+        public async Task<FileStorageDto> DownloadImage(int id)
+        {
+            return _mapper.Map<FileStorageDto>(await _productRepository.DownloadImage(id));
         }
     }
 }

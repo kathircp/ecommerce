@@ -50,6 +50,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { OrderListComponent } from './pages/order-list/order-list.component';
 import { OrderTrackComponent } from './pages/order-track/order-track.component';
 import { LoginComponent } from './auth/login/login.component';
+import { ProductListComponent } from './Admin/product-list/product-list.component';
+import { MatSelectModule } from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +73,8 @@ import { LoginComponent } from './auth/login/login.component';
     OrderSummaryComponent,
     OrderListComponent,
     OrderTrackComponent,
-    LoginComponent
+    LoginComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +104,11 @@ import { LoginComponent } from './auth/login/login.component';
     ReactiveFormsModule,
     MatCardModule,
     MatDividerModule,
-    MatRadioModule 
+    MatRadioModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [CartService, StoreService,AuthService, {
       provide: 'SocialAuthServiceConfig',
@@ -121,6 +130,7 @@ import { LoginComponent } from './auth/login/login.component';
         ]
       } as SocialAuthServiceConfig,
     }],
+    
   bootstrap: [AppComponent]
 })
 export class AppModule { }

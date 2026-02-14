@@ -2,6 +2,12 @@
   <mat-card *ngIf="product" [ngClass]="{'text-center': !fullWidthMode}"> <!-- Centraliza se não for no modo 1 coluna -->
     <div [ngClass]="{flex: fullWidthMode}">
       <a [routerLink]="['item-detail', product.id]">
+
+        <!-- Image preview -->
+<!-- <div *ngIf="imageSrc" class="preview">
+  <img [src]="imageSrc" alt="Selected Image" />
+</div> -->
+
       <img [ngClass]="{'h-200px' : !fullWidthMode, 'h-[360px]': fullWidthMode}"
       [src]="product.imageUrl" alt="" class="mb-1 mx-auto h-[200px]">
         </a>

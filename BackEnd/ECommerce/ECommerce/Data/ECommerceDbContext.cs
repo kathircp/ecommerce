@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ECommerce.Models;
+using ECommerce.DTOs;
 
 namespace ECommerce.Data
 {
@@ -22,6 +23,7 @@ namespace ECommerce.Data
         public DbSet<Track> Reviews { get; set; } = null!;
         public DbSet<UserDetail> UserDetails { get; set; } = null!;
         public DbSet<Track> Tracks { get; set; } = null!;
+        public DbSet<FileStorage> FileStorages { get; set; } = null!;
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

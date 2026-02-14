@@ -4,6 +4,7 @@ using System.Linq;
 using ECommerce.Models;
 using Microsoft.EntityFrameworkCore;
 using ECommerce.Data;
+using ECommerce.DTOs;
 
 namespace ECommerce.Repositories
 {
@@ -13,11 +14,17 @@ namespace ECommerce.Repositories
 
         Product? Get(int id);
 
-        Product Create(Product product);
+        bool Create(Product product);
 
         bool Update(Product product);
 
         bool Delete(int id);
+
+        int? FindCategoryByName(string categoryName);
+
+        int UploadImage(FileStorage fileStorage);
+
+        Task<FileStorage?> DownloadImage(int id);
     }
     public class ProductRepository : IProductRepository
     {
@@ -30,11 +37,11 @@ namespace ECommerce.Repositories
             _logger = logger;
         }
 
-        public Product Create(Product product)
-        {           
+        public bool Create(Product product)
+        {
             _db.Products.Add(product);
-            _db.SaveChanges();
-            return product;
+            int count = _db.SaveChanges();
+            return count > 0 ? true : false;
         }
 
         public bool Delete(int id)
@@ -46,6 +53,28 @@ namespace ECommerce.Repositories
             return true;
         }
 
+        public int? FindCategoryByName(string categoryName)
+        {
+            if (string.IsNullOrWhiteSpace(categoryName))
+                return 0;
+
+            try
+            {
+                var name = categoryName.Trim().ToLowerInvariant();
+                //var category = _db.Categories.Where(x => x.CategoryName == categoryName)?.FirstOrDefault();
+
+                var category = _db.Categories.Where(x => !string.IsNullOrEmpty(x.CategoryName) && x.CategoryName.ToLower() == name)?.FirstOrDefault();
+
+                // Return 0 when not found (caller should treat 0 as "not found")
+                return category?.Id ?? 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while finding category by name: {CategoryName}", categoryName);
+                return 0;
+            }
+        }
+
         public Product? Get(int id)
         {
             return _db.Products.Find(id);
@@ -54,14 +83,14 @@ namespace ECommerce.Repositories
         public async Task<IEnumerable<Product>> GetAll(int limit)
         {
             try
-            {   
+            {
                 var products = await _db.Products.Take(limit).ToListAsync();
                 return products;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while fetching products.");                
-            } 
+                _logger.LogError(ex, "An error occurred while fetching products.");
+            }
             return Enumerable.Empty<Product>();
         }
 
@@ -75,6 +104,26 @@ namespace ECommerce.Repositories
             existing.Stock = product.Stock;
             _db.SaveChanges();
             return true;
+        }
+
+        public int UploadImage(FileStorage fileStorage)
+        {
+            _db.FileStorages.Add(fileStorage);
+            int count = _db.SaveChanges();
+            return count > 0 ? fileStorage.Id : 0;
+        }
+        public async Task<FileStorage?> DownloadImage(int id)
+        {
+            try
+            {
+                var file = await _db.FileStorages.FindAsync(id);
+                return file;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while downloading image with ID: {FileId}", id);
+                return null;
+            }
         }
     }
 }
