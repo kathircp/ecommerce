@@ -41,12 +41,57 @@ namespace ECommerce.Controllers
             return Ok(await _productService.Get(id));           
         }
         [HttpPost]
-        public async Task<IActionResult> Create(ProductCreateDto productCreateDto)
+        public async Task<IActionResult> Upsert(ProductCreateDto productCreateDto)
         {
             bool isValid = false;
-            //(string fileUrl, string message, bool isUploaded) uploadResult = await UploadImage(productCreateDto.Image);
-            //if (uploadResult.isUploaded)
+            ProductDto? exitingproduct = null;
+            if (productCreateDto == null)
             {
+                return BadRequest("Invalid product data or image.");
+            }
+            if (productCreateDto.Price < 0 || productCreateDto.Stock < 0 || productCreateDto.Discount < 0)
+            {
+                return BadRequest("Price, Stock, and Discount must be non-negative.");
+            }
+            if (productCreateDto?.Id > 0)
+            {
+                exitingproduct = await _productService.Get(productCreateDto.Id);
+                if (exitingproduct != null)
+                {
+                    using var memoryStream = new MemoryStream();
+                    await productCreateDto.Image.CopyToAsync(memoryStream);
+
+                    var fileEntity = new FileStorageDto
+                    {
+                        Id = Convert.ToInt32(exitingproduct.ImageUrl),
+                        FileName = productCreateDto.Image.FileName,
+                        ContentType = productCreateDto.Image.ContentType,
+                        FileData = memoryStream.ToArray()
+                    };
+                    int fileId = _productService.UpdateImage(fileEntity);
+
+                    ProductDto productDto = new ProductDto
+                    {
+                        Id = exitingproduct.Id,
+                        Name = productCreateDto.Name,
+                        Description = productCreateDto.Description,
+                        Price = productCreateDto.Price,
+                        Stock = productCreateDto.Stock,
+                        CategoryId = _productService.FindCategoryByName(productCreateDto.CategoryName),
+                        Color = productCreateDto.Color,
+                        Discount = productCreateDto.Discount,
+                        Blouse = productCreateDto.IncludeBlouse,
+                        ImageUrl = fileId.ToString(),
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        UpdatedBy = productCreateDto.UpdatedBy,
+                        NewArrival = true
+                    };
+                    isValid = await _productService.Update(productDto);
+                }
+            }
+            else
+            {             
                 using var memoryStream = new MemoryStream();
                 await productCreateDto.Image.CopyToAsync(memoryStream);
 
@@ -57,7 +102,7 @@ namespace ECommerce.Controllers
                     FileData = memoryStream.ToArray()
                 };
                 int fileId = _productService.UploadImage(fileEntity);
-                if (fileId == 0 )
+                if (fileId == 0)
                 {
                     return StatusCode(500, "Failed to upload image.");
                 }
@@ -80,42 +125,6 @@ namespace ECommerce.Controllers
                 isValid = await _productService.Create(productDto);
             }
             return Ok(isValid);
-        }
-        //private async Task<(string fileUrl, string messge, bool isUploaded)> UploadImage(IFormFile file)
-        //{
-        //    try
-        //    {
-        //        // Validate file
-        //        if (file == null || file.Length == 0)
-        //            return (string.Empty, "No file uploaded.", false);
-
-        //        // Validate file type (only images)
-        //        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
-        //        var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
-
-        //        if (string.IsNullOrEmpty(extension) || Array.IndexOf(allowedExtensions, extension) < 0)
-        //            return (file.FileName, "Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.", false);
-
-        //        // Generate unique file name
-        //        var fileName = $"{Guid.NewGuid()}{extension}";
-
-        //        // Full path
-        //        var filePath = Path.Combine(_uploadFolderPath, fileName);
-
-        //        // Save file to folder
-        //        using (var stream = new FileStream(filePath, FileMode.Create))
-        //        {
-        //            await file.CopyToAsync(stream);
-        //        }
-
-        //        // Return file URL
-        //        var fileUrl = $"{Request.Scheme}://{Request.Host}/Uploads/{fileName}";
-        //        return (fileUrl,"File uploaded successfully", true);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return ("", $"500: Internal server error: {ex.Message}", false);
-        //    }
-        //}
+        }        
     }
 }

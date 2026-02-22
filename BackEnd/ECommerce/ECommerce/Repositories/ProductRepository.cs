@@ -23,6 +23,7 @@ namespace ECommerce.Repositories
         int? FindCategoryByName(string categoryName);
 
         int UploadImage(FileStorage fileStorage);
+        int UpdateImage(FileStorage fileStorage);
 
         Task<FileStorage?> DownloadImage(int id);
     }
@@ -49,8 +50,8 @@ namespace ECommerce.Repositories
             var p = _db.Products.Find(id);
             if (p == null) return false;
             _db.Products.Remove(p);
-            _db.SaveChanges();
-            return true;
+            int count = _db.SaveChanges();
+            return count > 0 ? true : false;
         }
 
         public int? FindCategoryByName(string categoryName)
@@ -102,8 +103,15 @@ namespace ECommerce.Repositories
             existing.Description = product.Description;
             existing.Price = product.Price;
             existing.Stock = product.Stock;
-            _db.SaveChanges();
-            return true;
+            existing.CategoryId = product.CategoryId;
+            existing.Color = product.Color;
+            existing.Discount = product.Discount;
+            existing.Blouse = product.Blouse;
+            existing.UpdatedAt = DateTime.UtcNow;
+            existing.UpdatedBy = product.UpdatedBy;
+            _db.Products.Update(existing);
+            int count = _db.SaveChanges();
+            return count > 0 ? true: false;
         }
 
         public int UploadImage(FileStorage fileStorage)
@@ -111,6 +119,23 @@ namespace ECommerce.Repositories
             _db.FileStorages.Add(fileStorage);
             int count = _db.SaveChanges();
             return count > 0 ? fileStorage.Id : 0;
+        }
+        public int UpdateImage(FileStorage fileStorage)
+        {
+            var existingFile = _db.FileStorages.Find(fileStorage.Id);
+            if (existingFile != null)
+            {
+                existingFile.FileName = fileStorage.FileName;
+                existingFile.ContentType = fileStorage.ContentType;
+                existingFile.FileData = fileStorage.FileData;
+                _db.FileStorages.Update(existingFile);
+                int count = _db.SaveChanges();
+                return count > 0 ? existingFile.Id : 0;
+            }
+            else
+            {
+                return UploadImage(fileStorage);
+            }
         }
         public async Task<FileStorage?> DownloadImage(int id)
         {

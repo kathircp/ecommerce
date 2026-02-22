@@ -18,7 +18,7 @@ export class ProductListComponent implements OnInit {
    productSubscription: Subscription | undefined; 
    pageIndex: any[] = [];
 
-  columns = ['image','name','price','stock','category','actions'];
+  columns = ['Id','name','price','stock','category','actions'];
 
   constructor(private http: HttpClient, private router: Router, private indexpageService: IndexpageService) {}
 
@@ -35,7 +35,7 @@ export class ProductListComponent implements OnInit {
         });
         this.products = res;
         this.filteredProducts = res;
-        console.log(res)
+        //console.log(res)
       });
   }
   getCategoryName(categoryId: any): any {
@@ -77,7 +77,7 @@ export class ProductListComponent implements OnInit {
   }
 
   edit(id: number) {
-    this.router.navigate(['/admin/product', id]);
+    this.router.navigate(['/admin', id]);
   }
 
   delete(id: number) {

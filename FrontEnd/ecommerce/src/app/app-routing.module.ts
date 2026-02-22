@@ -14,38 +14,17 @@ import { AdminProductComponent } from './Admin/admin-product/admin-product.compo
 
 
 const routes: Routes = [
-  {
-    path: 'home', component: HomeComponent
-  },
-  {
-    path: 'cart', component: CartComponent
-  },  
-  {
-    path: 'checkout', component: CheckoutComponent
-  },
-  {
-    path: 'orders',
-    component: OrderListComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'orders/:id',
-    component: OrderTrackComponent
-  },
-  {
-    path: '', redirectTo: 'home', pathMatch: 'full'
-  },
-  {
-    path: 'home/item-detail/:id' , 
-    component: ProductItemDetailComponent
-  },
-  {
-    path: 'login', 
-    component: LoginComponent
-  },
-  { path: 'admin', component: AdminProductComponent },
-  { path: 'admin/product', component: ProductListComponent } // edit
-
+  {    path: 'home', component: HomeComponent  },
+  {    path: 'cart', component: CartComponent  },  
+  {    path: 'checkout', component: CheckoutComponent  },
+  {    path: 'orders', component: OrderListComponent, canActivate: [AuthGuard]  },
+  {    path: 'orders/:id', component: OrderTrackComponent  },
+  {    path: '', redirectTo: 'home', pathMatch: 'full'  },
+  {    path: 'home/item-detail/:id' , component: ProductItemDetailComponent  },
+  {    path: 'login', component: LoginComponent  },
+  {   path: 'admin', component: AdminProductComponent },
+  {   path: 'admin/product', component: ProductListComponent },
+  {   path: 'admin/:id', component: AdminProductComponent }
 ];
 
 @NgModule({

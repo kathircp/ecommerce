@@ -33,12 +33,20 @@ namespace ECommerce.Services
             var product = _productRepository.Get(id);
             if (product == null) return null;
             var dtoResponse = _mapper.Map<ProductDto>(product);
+            var fileStorage = await _productRepository.DownloadImage(Convert.ToInt32(dtoResponse.ImageUrl));
+            dtoResponse.Image = _mapper.Map<FileStorageDto>(fileStorage);
             return dtoResponse;
         }
         public async Task<bool> Create(ProductDto productDto)
         {
             var product = _mapper.Map<Product>(productDto);
             var createdProduct = _productRepository.Create(product);
+            return createdProduct;
+        }
+        public async Task<bool> Update(ProductDto productDto)
+        {
+            var product = _mapper.Map<Product>(productDto);
+            var createdProduct = _productRepository.Update(product);
             return createdProduct;
         }
 
@@ -51,6 +59,11 @@ namespace ECommerce.Services
         {
             var fileStorage = _mapper.Map<FileStorage>(fileStorageDto);
             return _productRepository.UploadImage(fileStorage);
+        }
+        public int UpdateImage(FileStorageDto fileStorageDto)
+        {
+            var fileStorage = _mapper.Map<FileStorage>(fileStorageDto);
+            return _productRepository.UpdateImage(fileStorage);
         }
         public async Task<FileStorageDto> DownloadImage(int id)
         {
